@@ -1,2 +1,2 @@
 web: composer install 
-web: npm start
+web: php artisan serve
