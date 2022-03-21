@@ -1,1 +1,2 @@
-web: composer install && npm start
+web: composer install 
+web: npm start
