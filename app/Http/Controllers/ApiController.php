@@ -7,12 +7,13 @@ use App\Http\Controllers\Controller;
 
 class ApiController extends Controller
 {
+
     public function getAllStudents()
     {
         // logic to get all students goes here
         return response()->json([
             'name' => 'Abigail',
-            'state' => 'CA'
+            'state' => "usuario teste"
         ], 200);
     }
 
