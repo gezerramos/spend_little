@@ -2,8 +2,9 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use \App\Http\Controllers\ApiController;
+use \App\Http\Controllers\UserController;
 use \App\Http\Controllers\AuthController;
+use \App\Http\Middleware\AuthenticMD;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,7 +25,7 @@ Route::prefix('/authentication')->group(function () {
 
 
 //create user
-Route::get('exemplo', [ApiController::class, 'getAllStudents']);
+Route::middleware(AuthenticMD::class)->get('/user', [UserController::class, 'allUsers']);
 
 
 
