@@ -17,14 +17,14 @@ class UserController extends Controller
 
         try {
             $users = User::all([
-                'id', 
-                'name', 
-                'email', 
-                'created_at', 
+                'id',
+                'name',
+                'email',
+                'created_at',
                 'updated_at',
                 'level_id'
             ]);
-            
+
             $info = [
                 'count' => count($users),
                 'content' => $users,
@@ -68,11 +68,27 @@ class UserController extends Controller
 
     public function getUser($id)
     {
-        // logic to get a User record goes here
+        try {
+            $users = User::find($id);
+
+            $info = [
+                'content' => $users,
+            ];
+            return response()->json(
+                $info,
+                200
+            );
+        } catch (\Throwable  $e) {
+
+            return response()->json([
+                "error:" => "true",
+                "message" => $e->getMessage(),
+            ], $e->status);
+        }
     }
     public function findUserMail($email)
     {
-          //$user = User::firstWhere('email', $credenciais['email']);
+        //$user = User::firstWhere('email', $credenciais['email']);
     }
     public function updateUser(Request $request, $id)
     {

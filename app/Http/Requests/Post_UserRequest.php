@@ -47,7 +47,6 @@ class Post_UserRequest extends FormRequest
             'level_id.required' => 'O level_id é obrigatório!',
             'level_id.min' => 'O level_id deve conter o no minimo um id válido.',
             'level_id.integer' => 'O level_id deve ser um integer.',
-
         ];
     }
 }
