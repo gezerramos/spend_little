@@ -8,8 +8,8 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 
 /**
- * @OA\Server(url="http://localhost:8000/api/v1", description="API(Produção)")
  * @OA\Server(url="https://spend-little.herokuapp.com/api/v1", description="API(Produção)")
+ * @OA\Server(url="http://localhost:8000/api/v1", description="API(Produção)")
  * @OA\Info(
  *      title="Spend Little", 
  *      version="0.1",
