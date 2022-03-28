@@ -14,27 +14,32 @@ class AuthController extends Controller
     {
         try {
 
-            $user = User::firstWhere('email', $request->get('email'));
-            if (!isset($user->email)) {
-                throw ValidationException::withMessages(['field_name' => 'Unauthorized']);
-            }
+            $credenciais = $request->only(['email', 'password']);
+            //config()->set('jwt.ttl', 60*60*7); //time limit exp
 
-            if ($user->password != $request->password) {
-                throw ValidationException::withMessages(['field_name' => 'Unauthorized']);
-            }
+            $token = auth('api')->attempt($credenciais);
 
-            $teste = [
-                'email' => $user->email,
-                'password' => $user->password,
-            ];
+            if (!$token) {
+                //throw ValidationException::withMessages(['field_name' => 'forbidden!']);
+                return response()->json([
+                    "error:" => "true",
+                    "message" => "Usuário ou senha inválido!",
+                ], 403);
+            };
 
-            return response()->json($teste, 200);
-        } catch (\Throwable  $e) {
+            $user = User::innerjoinUserLevel($credenciais['email']);
+            $user->token = $token;
+
+            return response()->json([
+                "error:" => "false",
+                "user" => $user,
+            ], 201);
+        } catch (\Exception  $e) {
 
             return response()->json([
                 "error:" => "true",
                 "message" => $e->getMessage(),
-            ], 401);
+            ], 500);
         }
     }
 }

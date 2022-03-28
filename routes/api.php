@@ -1,31 +1,24 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\UserController;
 use \App\Http\Controllers\AuthController;
 use \App\Http\Middleware\AuthenticMD;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
-
 //auth
-Route::prefix('/authentication')->group(function () {
-    Route::post('', [AuthController::class, 'post_Auth'])->name('authentication.auth');
-    //Route::get('/refresh', [AuthController::class, 'post_Auth'])->name('authentication.refresh');;
+Route::post('/authentication', [AuthController::class, 'post_Auth'])->name('authentication.auth');
+
+Route::middleware(AuthenticMD::class)->prefix('/v1')->group(function () {
+    //create user
+    Route::post('/user', [UserController::class, 'createUser'])->name('user.create');
+    //get all users
+    Route::get('/user', [UserController::class, 'allUsers'])->name('user.all');
+    //ref token
+    Route::get('/refresh', [AuthController::class, 'refresh_token'])->name('authentication.refresh');
 });
 
 
-//create user
-Route::middleware(AuthenticMD::class)->get('/user', [UserController::class, 'allUsers']);
+
 
 
 
@@ -34,8 +27,9 @@ Route::post('students', 'ApiController@createStudent');
 Route::put('students/{id}', 'ApiController@updateStudent');
 Route::delete('students/{id}','ApiController@deleteStudent'); */
 
-/* Route::get('students',  function() {
-    $controller = new \App\Http\Controllers\ApiController;
-    return $controller->getAllStudents();
-    //fazer algo com o $array...
-}); */
+Route::any('{any}', function(){
+    return response()->json([
+        'status'    => false,
+        'message'   => 'Page Not Found.',
+    ], 404);
+})->where('any', '.*');

@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Post_UserRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Illuminate\Validation\ValidationException;
+
 
 class UserController extends Controller
 {
@@ -13,10 +16,18 @@ class UserController extends Controller
     {
 
         try {
-            $users = User::all();
+            $users = User::all([
+                'id', 
+                'name', 
+                'email', 
+                'created_at', 
+                'updated_at',
+                'level_id'
+            ]);
+            
             $info = [
-                'count'=> count($users),
-                'content'=>$users,
+                'count' => count($users),
+                'content' => $users,
             ];
             return response()->json(
                 $info,
@@ -31,23 +42,45 @@ class UserController extends Controller
         }
     }
 
-    public function createStudent(Request $request)
+    public function createUser(Post_UserRequest $request)
     {
-        // logic to create a student record goes here
+        try {
+
+            $user = new User;
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->password = bcrypt($request->password);
+            $user->level_id = $request->level_id;
+            $user->save();
+
+            return response()->json(
+                'Usuário criado com sucesso!',
+                200
+            );
+        } catch (\Throwable  $e) {
+
+            return response()->json([
+                "error:" => "true",
+                "message" => $e->getMessage(),
+            ], $e->status);
+        }
     }
 
-    public function getStudent($id)
+    public function getUser($id)
     {
-        // logic to get a student record goes here
+        // logic to get a User record goes here
+    }
+    public function findUserMail($email)
+    {
+          //$user = User::firstWhere('email', $credenciais['email']);
+    }
+    public function updateUser(Request $request, $id)
+    {
+        // logic to update a User record goes here
     }
 
-    public function updateStudent(Request $request, $id)
+    public function deleteUser($id)
     {
-        // logic to update a student record goes here
-    }
-
-    public function deleteStudent($id)
-    {
-        // logic to delete a student record goes here
+        // logic to delete a User record goes here
     }
 }

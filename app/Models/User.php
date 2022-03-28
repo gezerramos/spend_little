@@ -3,10 +3,39 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Tymon\JWTAuth\Contracts\JWTSubject;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Model
+class User extends Authenticatable implements JWTSubject
 {
-  protected $fillable = ['name', 'email', 'password', 'level_id'];
-  protected $table = 'users';
 
+  protected $fillable = ['name', 'email', 'password', 'level_id'];
+  //protected $table = 'users';
+
+  public static function innerjoinUserLevel($email)
+  {
+    $user = User::where('users.email', $email)
+      ->join('levels', 'users.level_id', '=', 'levels.id')
+      ->select(
+        'users.id',
+        'users.name',
+        'users.email',
+        'users.created_at',
+        'users.level_id',
+        'levels.name as level'
+      )
+      ->get()[0];
+      return $user;
+  }
+
+  public function getJWTIdentifier()
+  {
+    return $this->getKey();
+  }
+
+  public function getJWTCustomClaims()
+  {
+
+    return [];
+  }
 }
