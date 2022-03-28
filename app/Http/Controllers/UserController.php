@@ -11,7 +11,22 @@ use Illuminate\Validation\ValidationException;
 
 class UserController extends Controller
 {
-
+    /**
+     * @OA\Get(
+     *      path="/user", 
+     *      tags={"/user"},
+     *      summary="User",
+     *      description="Rota responsavel por listar todos os usuarios!",
+     *      security= {{"bearerAuth": {}}},
+     *      @OA\Response (
+     *          response="200", description="Success"),
+     *      @OA\Response (response="201", description="Created"),
+     *      @OA\Response (response="401", description="Unauthorized"),
+     *      @OA\Response (response="403", description="Forbidden"),
+     *      @OA\Response (response="404", description="Not Found"),
+     *      @OA\Response (response="500", description="Internal Server Error"),
+     * )
+     */
     public function allUsers(Request $request)
     {
 
@@ -65,11 +80,33 @@ class UserController extends Controller
             ], $e->status);
         }
     }
-
+   /**
+     * @OA\Get(
+     *      path="/user/{id}", 
+     *      tags={"/user"},
+     *      summary="User",
+     *      description="Rota responsavel recuperar usuario!",
+     *      security= {{"bearerAuth": {}}},
+     *      @OA\Parameter(
+     *         description="Parameter example",
+     *         in="path",
+     *         name="id",
+     *         required=true,
+     *     ),
+     *      @OA\Response (
+     *          response="200", description="Success"),
+     *      @OA\Response (response="201", description="Created"),
+     *      @OA\Response (response="401", description="Unauthorized"),
+     *      @OA\Response (response="403", description="Forbidden"),
+     *      @OA\Response (response="404", description="Not Found"),
+     *      @OA\Response (response="500", description="Internal Server Error"),
+     * )
+     */
     public function getUser($id)
     {
         try {
             $users = User::find($id);
+            unset($users->password);
 
             $info = [
                 'content' => $users,

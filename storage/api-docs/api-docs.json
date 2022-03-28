@@ -1,0 +1,203 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Spend Little",
+        "description": "Essa API foi desenvolvida para manipular Spend Little",
+        "contact": {
+            "email": "gezerramo@gmail.com"
+        },
+        "version": "0.1"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8000/api/v1",
+            "description": "API(Produção)"
+        },
+        {
+            "url": "https://spend-little.herokuapp.com/api/v1",
+            "description": "API(Produção)"
+        }
+    ],
+    "paths": {
+        "/authentication": {
+            "post": {
+                "tags": [
+                    "/authentication"
+                ],
+                "summary": "authentication",
+                "description": "Rota responsavel por se autenticar!",
+                "operationId": "4a995107cd220d07545b71572142655f",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "email": "fulano@gmail.com",
+                                    "password": "123456"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "201": {
+                        "description": "Created"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/level": {
+            "get": {
+                "tags": [
+                    "/level"
+                ],
+                "summary": "level",
+                "description": "Rota responsavel por listar todos niveis de acesso!",
+                "operationId": "c800496a3b8690600b6a1b0fdbca0e62",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "201": {
+                        "description": "Created"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/user": {
+            "get": {
+                "tags": [
+                    "/user"
+                ],
+                "summary": "User",
+                "description": "Rota responsavel por listar todos os usuarios!",
+                "operationId": "29fe6261905366f57d192d4f07905f87",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "201": {
+                        "description": "Created"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/user/{id}": {
+            "get": {
+                "tags": [
+                    "/user"
+                ],
+                "summary": "User",
+                "description": "Rota responsavel recuperar usuario!",
+                "operationId": "4826814dc6639c07a116bb14cc3fced1",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Parameter example",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "201": {
+                        "description": "Created"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "scheme": "bearer"
+            }
+        }
+    },
+    "security": [
+        []
+    ]
+}

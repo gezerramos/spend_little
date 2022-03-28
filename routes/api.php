@@ -7,7 +7,7 @@ use \App\Http\Middleware\AuthenticMD;
 use \App\Http\Controllers\LevelController;
 
 //auth
-Route::post('/authentication', [AuthController::class, 'post_Auth'])->name('authentication.auth');
+Route::post('/v1/authentication', [AuthController::class, 'post_Auth'])->name('authentication.auth');
 
 Route::middleware(AuthenticMD::class)->prefix('/v1')->group(function () {
     //create user

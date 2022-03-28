@@ -8,7 +8,22 @@ use App\Models\Level;
 
 class LevelController extends Controller
 {
-
+ /**
+     * @OA\Get(
+     *      path="/level", 
+     *      tags={"/level"},
+     *      summary="level",
+     *      description="Rota responsavel por listar todos niveis de acesso!",
+     *      security= {{"bearerAuth": {}}},
+     *      @OA\Response (
+     *          response="200", description="Success"),
+     *      @OA\Response (response="201", description="Created"),
+     *      @OA\Response (response="401", description="Unauthorized"),
+     *      @OA\Response (response="403", description="Forbidden"),
+     *      @OA\Response (response="404", description="Not Found"),
+     *      @OA\Response (response="500", description="Internal Server Error"),
+     * )
+     */
     public function allLevel(Request $request)
     {
 
