@@ -22,19 +22,10 @@ use Illuminate\Routing\Controller as BaseController;
  *      scheme= "bearer",
  *      securityScheme="bearerAuth"
  * )
- * 
  */
+
 class Controller extends BaseController
 {
 
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 }
-
-/**
- *@OA\SecurityScheme(
- *      type= "http",
- *      scheme= "bearer",
- *      securityScheme="bearerAuth"
- * )
- * 
- */
