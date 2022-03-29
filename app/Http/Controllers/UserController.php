@@ -8,7 +8,6 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Validation\ValidationException;
 
-
 class UserController extends Controller
 {
     /**
