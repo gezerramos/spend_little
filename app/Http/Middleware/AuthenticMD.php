@@ -25,6 +25,10 @@ class AuthenticMD extends Authenticate
     public function handle($request, Closure $next)
     {
         try {
+            if (!$request->secure() && in_array(env('APP_ENV'), ['stage', 'production'])) {
+                return redirect()->secure($request->getRequestUri());
+            }
+            
             $this->authenticate($request);
 
             $token = JWTAuth::getToken();
