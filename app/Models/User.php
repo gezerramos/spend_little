@@ -28,6 +28,22 @@ class User extends Authenticatable implements JWTSubject
       return $user;
   }
 
+  public static function innerjoinAccountInfo($id)
+  {
+    $user = User::where('users.id', $id)
+      ->join('levels', 'users.level_id', '=', 'levels.id')
+      ->select(
+        'users.id',
+        'users.name',
+        'users.email',
+        'users.created_at',
+        'users.level_id',
+        'levels.name as level'
+      )
+      ->get()[0];
+      return $user;
+  }
+
   public function getJWTIdentifier()
   {
     return $this->getKey();

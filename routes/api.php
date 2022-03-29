@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\UserController;
+use \App\Http\Controllers\AccountController;
 use \App\Http\Controllers\AuthController;
 use \App\Http\Middleware\AuthenticMD;
 use \App\Http\Controllers\LevelController;
@@ -10,14 +11,17 @@ use \App\Http\Controllers\LevelController;
 Route::post('/v1/authentication', [AuthController::class, 'post_Auth'])->name('authentication.auth');
 
 Route::middleware(AuthenticMD::class)->prefix('/v1')->group(function () {
-    //create user
+
     Route::post('/user', [UserController::class, 'createUser'])->name('user.create');
     Route::get('/user', [UserController::class, 'allUsers'])->name('user.all');
     Route::get('/user/{id}', [UserController::class, 'getUser'])->name('user.find');
+   
+    Route::get('/account/me', [AccountController::class, 'getInfoAccount'])->name('user.find');
 
     Route::get('/level', [LevelController::class, 'allLevel'])->name('level.all');
     //ref token
     Route::get('/refresh', [AuthController::class, 'refresh_token'])->name('authentication.refresh');
+    
 });
 
 
