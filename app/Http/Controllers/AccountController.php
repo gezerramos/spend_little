@@ -6,12 +6,13 @@ use App\Http\Requests\Post_UserRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use \Tymon\JWTAuth\Facades\JWTAuth;
 
 
 class AccountController extends Controller
 {
-   
-   /**
+
+    /**
      * @OA\Get(
      *      path="/account/me", 
      *      tags={"/account"},
@@ -47,6 +48,32 @@ class AccountController extends Controller
                 "message" => $e->getMessage(),
             ], $e->status);
         }
+    }
+
+    /**
+     * @OA\Get(
+     *      path="/account/refresh", 
+     *      tags={"/account"},
+     *      summary="Account",
+     *      description="Responsible route refresh token!",
+     *      security= {{"bearerAuth": {}}},
+     *      @OA\Response (
+     *          response="200", description="Success"),
+     *      @OA\Response (response="201", description="Created"),
+     *      @OA\Response (response="401", description="Unauthorized"),
+     *      @OA\Response (response="403", description="Forbidden"),
+     *      @OA\Response (response="404", description="Not Found"),
+     *      @OA\Response (response="500", description="Internal Server Error"),
+     * )
+     */
+
+    public function refreshToken()
+    {
+        $token = JWTAuth::parseToken()->refresh();
+        return response()->json(
+            ['token' => $token],
+            201
+        );
     }
     public function findUserMail($email)
     {

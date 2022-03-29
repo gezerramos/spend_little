@@ -12,23 +12,19 @@ Route::post('/v1/authentication', [AuthController::class, 'post_Auth'])->name('a
 
 Route::middleware(AuthenticMD::class)->prefix('/v1')->group(function () {
 
+
+    Route::get('/account/me', [AccountController::class, 'getInfoAccount'])->name('account.me');
+    Route::get('/account/refresh', [AccountController::class, 'refreshToken'])->name('account.refresh');
+    
     Route::post('/user', [UserController::class, 'createUser'])->name('user.create');
     Route::get('/user', [UserController::class, 'allUsers'])->name('user.all');
     Route::get('/user/{id}', [UserController::class, 'getUser'])->name('user.find');
+    Route::patch('/user/{id}', [UserController::class, 'updateUser'])->name('user.find');
    
-    Route::get('/account/me', [AccountController::class, 'getInfoAccount'])->name('user.find');
-
     Route::get('/level', [LevelController::class, 'allLevel'])->name('level.all');
-    //ref token
-    Route::get('/refresh', [AuthController::class, 'refresh_token'])->name('authentication.refresh');
-    
+
 });
 
-
-/* Route::get('students/{id}', 'ApiController@getStudent');
-Route::post('students', 'ApiController@createStudent');
-Route::put('students/{id}', 'ApiController@updateStudent');
-Route::delete('students/{id}','ApiController@deleteStudent'); */
 
 Route::any('{any}', function(){
     return response()->json([

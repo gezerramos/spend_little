@@ -16,23 +16,22 @@ class AuthController extends Controller
      *      tags={"/authentication"},
      *      summary="authentication",
      *      description="Rota responsavel por se autenticar!",
-     *      security= {{"bearerAuth": {}}},
-    *     @OA\RequestBody(
- *         @OA\MediaType(
- *             mediaType="application/json",
- *             @OA\Schema(
- *                 @OA\Property(
- *                     property="email",
- *                     type="string"
- *                 ),
- *                 @OA\Property(
- *                     property="password",
- *                     type="string"
- *                 ),
- *                 example={"email": "fulano@gmail.com", "password": "123456"}
- *             )
- *         )
- *     ),
+     *     @OA\RequestBody(
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 @OA\Property(
+     *                     property="email",
+     *                     type="string"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="password",
+     *                     type="string"
+     *                 ),
+     *                 example={"email": "fulano@gmail.com", "password": "123456"}
+     *             )
+     *         )
+     *     ),
      *      @OA\Response (response="200", description="Success"),
      *      @OA\Response (response="201", description="Created"),
      *      @OA\Response (response="401", description="Unauthorized"),
