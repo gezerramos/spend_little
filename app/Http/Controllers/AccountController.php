@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use \Tymon\JWTAuth\Facades\JWTAuth;
 use App\Http\Requests\Patch_AccountRequest;
+use Illuminate\Support\Facades\Storage;
 
 
 class AccountController extends Controller
@@ -26,6 +27,7 @@ class AccountController extends Controller
      *      @OA\Response (response="401", description="Unauthorized"),
      *      @OA\Response (response="403", description="Forbidden"),
      *      @OA\Response (response="404", description="Not Found"),
+     *      @OA\Response (response="409", description="Conflict"),
      *      @OA\Response (response="500", description="Internal Server Error"),
      * )
      */
@@ -64,6 +66,7 @@ class AccountController extends Controller
      *      @OA\Response (response="401", description="Unauthorized"),
      *      @OA\Response (response="403", description="Forbidden"),
      *      @OA\Response (response="404", description="Not Found"),
+     *      @OA\Response (response="409", description="Conflict"),
      *      @OA\Response (response="500", description="Internal Server Error"),
      * )
      */
@@ -88,20 +91,6 @@ class AccountController extends Controller
      *      description="Rota responsavel por editar conta do usuario logado!",
      *      security= {{"bearerAuth": {}}},
      *   @OA\RequestBody(
-     *       @OA\MediaType(
-     *           mediaType="multipart/form-data",
-     *           @OA\Schema(
-     *               type="object", 
-     *               @OA\Property(
-     *                  property="image",
-     *                  type="array",
-     *                  @OA\Items(
-     *                       type="string",
-     *                       format="binary",
-     *                  ),
-     *               ),
-     *           ),
-     *       ),
      *          @OA\MediaType(
      *             mediaType="application/json",
      *             @OA\Schema( 
@@ -130,6 +119,7 @@ class AccountController extends Controller
      *      @OA\Response (response="401", description="Unauthorized"),
      *      @OA\Response (response="403", description="Forbidden"),
      *      @OA\Response (response="404", description="Not Found"),
+     *      @OA\Response (response="409", description="Conflict"),
      *      @OA\Response (response="500", description="Internal Server Error"),
      * )
      */
@@ -164,6 +154,71 @@ class AccountController extends Controller
             }
 
             $user->update($requestEquals);
+
+            return response()->json(
+                [],
+                200
+            );
+        } catch (\Throwable  $e) {
+
+            return response()->json([
+                "error:" => "true",
+                "message" => $e->getMessage(),
+            ], $e->status);
+        }
+    }
+
+    /**
+     * @OA\Post(
+     *      path="/account/me/image", 
+     *      tags={"/account"},
+     *      summary="Account",
+     *      description="Rota responsavel por editar conta do usuario logado!",
+     *      security= {{"bearerAuth": {}}},
+     *   @OA\RequestBody(
+     *       @OA\MediaType(
+     *           mediaType="multipart/form-data",
+     *           @OA\Schema(
+     *               type="object", 
+     *               @OA\Property(
+     *                  property="imagem",
+     *                  type="array",
+     *                  @OA\Items(
+     *                       type="string",
+     *                       format="binary",
+     *                  ),
+     *               ),
+     *           ),
+     *       ),
+     *   ),
+     *      @OA\Response (
+     *          response="200", description="Success"),
+     *      @OA\Response (response="201", description="Created"),
+     *      @OA\Response (response="401", description="Unauthorized"),
+     *      @OA\Response (response="403", description="Forbidden"),
+     *      @OA\Response (response="404", description="Not Found"),
+     *      @OA\Response (response="409", description="Conflict"),
+     *      @OA\Response (response="500", description="Internal Server Error"),
+     * )
+     */
+    public function updateAccountImage(Patch_AccountRequest $request)
+    {
+        try {
+
+            if (!$request->file('imagem')) {
+                return response()->json([
+                    "error:" => "true",
+                    "message" => "Imagem não foi enviada!",
+                ], 409);
+            }
+            $user = User::find($request->userID);
+            Storage::disk('public')->delete($user->image);//delete imagem antiga
+            
+            $image = $request->file('imagem');
+            $image_urn = $image->store('imagens', 'public');
+
+            $user->image = $image_urn;
+            $user->update();
 
             return response()->json(
                 [],

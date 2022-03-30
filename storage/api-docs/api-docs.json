@@ -43,6 +43,9 @@
                     "404": {
                         "description": "Not Found"
                     },
+                    "409": {
+                        "description": "Conflict"
+                    },
                     "500": {
                         "description": "Internal Server Error"
                     }
@@ -62,20 +65,6 @@
                 "operationId": "d375f0c480fcb91943e1fb98e822f11d",
                 "requestBody": {
                     "content": {
-                        "multipart/form-data": {
-                            "schema": {
-                                "properties": {
-                                    "image": {
-                                        "type": "array",
-                                        "items": {
-                                            "type": "string",
-                                            "format": "binary"
-                                        }
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        },
                         "application/json": {
                             "schema": {
                                 "properties": {
@@ -115,6 +104,9 @@
                     "404": {
                         "description": "Not Found"
                     },
+                    "409": {
+                        "description": "Conflict"
+                    },
                     "500": {
                         "description": "Internal Server Error"
                     }
@@ -149,6 +141,65 @@
                     },
                     "404": {
                         "description": "Not Found"
+                    },
+                    "409": {
+                        "description": "Conflict"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/account/me/image": {
+            "post": {
+                "tags": [
+                    "/account"
+                ],
+                "summary": "Account",
+                "description": "Rota responsavel por editar conta do usuario logado!",
+                "operationId": "38bbe3d69564c7a1f69342572b5a0db2",
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "imagem": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string",
+                                            "format": "binary"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "201": {
+                        "description": "Created"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "409": {
+                        "description": "Conflict"
                     },
                     "500": {
                         "description": "Internal Server Error"
@@ -210,6 +261,9 @@
                     "404": {
                         "description": "Not Found"
                     },
+                    "409": {
+                        "description": "Conflict"
+                    },
                     "500": {
                         "description": "Internal Server Error"
                     }
@@ -239,6 +293,9 @@
                     },
                     "404": {
                         "description": "Not Found"
+                    },
+                    "409": {
+                        "description": "Conflict"
                     },
                     "500": {
                         "description": "Internal Server Error"
@@ -274,6 +331,9 @@
                     },
                     "404": {
                         "description": "Not Found"
+                    },
+                    "409": {
+                        "description": "Conflict"
                     },
                     "500": {
                         "description": "Internal Server Error"
@@ -343,6 +403,9 @@
                     "404": {
                         "description": "Not Found"
                     },
+                    "409": {
+                        "description": "Conflict"
+                    },
                     "500": {
                         "description": "Internal Server Error"
                     }
@@ -385,6 +448,9 @@
                     },
                     "404": {
                         "description": "Not Found"
+                    },
+                    "409": {
+                        "description": "Conflict"
                     },
                     "500": {
                         "description": "Internal Server Error"
@@ -451,6 +517,9 @@
                     },
                     "404": {
                         "description": "Not Found"
+                    },
+                    "409": {
+                        "description": "Conflict"
                     },
                     "500": {
                         "description": "Internal Server Error"

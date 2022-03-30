@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class Patch_UserRequest extends FormRequest
 {
@@ -29,6 +31,15 @@ class Patch_UserRequest extends FormRequest
             'level_id' => 'min:1 | integer',
             'status' => 'min:0 | max:1 | integer',
         ];
+    }
+    protected function failedValidation(Validator $validator)
+    {
+        throw new HttpResponseException(
+            response()->json([
+                "error:" => "true",
+                "message" => $validator->errors(),
+            ], 409)
+        );
     }
     public function messages()
     {

@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class Patch_AccountRequest extends FormRequest
 {
@@ -29,8 +31,17 @@ class Patch_AccountRequest extends FormRequest
             'level_id' => 'min:1 | integer',
             'status' => 'min:0 | max:1 | integer',
             'password' => 'min:4|max:40 | string',
-            
+            'imagem' => 'file|mimes:jpeg,jpg,png|max:10000' // max 10000kb
         ];
+    }
+    protected function failedValidation(Validator $validator)
+    {
+        throw new HttpResponseException(
+            response()->json([
+                "error:" => "true",
+                "message" => $validator->errors(),
+            ], 409)
+        );
     }
     public function messages()
     {
@@ -46,12 +57,11 @@ class Patch_AccountRequest extends FormRequest
             'status.min' => 'O status deve conter o no minimo um id válido.',
             'status.max' => 'O status não deve ser maior que 1.',
             'status.integer' => 'O status deve ser um integer.',
-            'password_last.required' => 'O password_last é obrigatório!',
-            'password_last.max' => 'O password_last não deve ter mais de 10 caracteres.',
-            'password_last.min' => 'O password_last deve ter pelo menos 6 caracteres.',
-            'password_new.required' => 'O password_new é obrigatório!',
-            'password_new.max' => 'O password_new não deve ter mais de 10 caracteres.',
-            'password_new.min' => 'O password_new deve ter pelo menos 6 caracteres.',
+            'password.max' => 'O password não deve ter mais de 10 caracteres.',
+            'password.min' => 'O password deve ter pelo menos 6 caracteres.',
+            'imagem.max' => 'A imagem não deve ter mais de 10000kb.',
+            'imagem.mimes' => 'A imagem é obrigatória.',
+
         ];
     }
 }
