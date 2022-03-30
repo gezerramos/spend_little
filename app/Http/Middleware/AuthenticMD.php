@@ -31,7 +31,7 @@ class AuthenticMD extends Authenticate
             $token = JWTAuth::getToken();
             $apy = JWTAuth::getPayload($token)->toArray();
 
-            $request->userID =  $apy['sub'];
+            $request["userID"] =  $apy['sub'];
 
             return $next($request);
         } catch (\Exception  $e) {

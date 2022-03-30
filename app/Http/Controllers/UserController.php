@@ -67,6 +67,7 @@ class UserController extends Controller
      *         @OA\MediaType(
      *             mediaType="application/json",
      *             @OA\Schema( 
+     *                 required={"name","email","password","level_id"},
      *                 @OA\Property(
      *                     property="name",
      *                     type="string"
@@ -203,16 +204,11 @@ class UserController extends Controller
      *                     type="string"
      *                 ),
      *                 @OA\Property(
-     *                     property="password",
-     *                     type="string"
-     *                 ),
-     *                 @OA\Property(
      *                     property="level_id",
      *                     type="number"
      *                 ),
      *                 example={"name": "Fulano de Tal",
      *                          "email": "fulano@gmail.com", 
-     *                          "password": "123456",
      *                          "level_id": 1}
      *             )
      *         )
@@ -245,8 +241,14 @@ class UserController extends Controller
                     "message" => "Email já existe em nossa base de dados!",
                 ], 409);
             }
-
-            $user->update($request->all());
+            //validando apenas o que esta na regra
+            $requestEquals = array();
+            foreach ($request->all() as $input => $value) {
+                if (array_key_exists($input, $request->rules())) {
+                    $requestEquals[$input] = $value;
+                }
+            }
+             $user->update($requestEquals);
 
             return response()->json(
                 [],

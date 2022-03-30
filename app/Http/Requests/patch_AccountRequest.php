@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class Patch_UserRequest extends FormRequest
+class Patch_AccountRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -28,6 +28,8 @@ class Patch_UserRequest extends FormRequest
             'email' => 'min:6|max:80|email:rfc,dns',
             'level_id' => 'min:1 | integer',
             'status' => 'min:0 | max:1 | integer',
+            'password' => 'min:4|max:40 | string',
+            
         ];
     }
     public function messages()
@@ -44,6 +46,12 @@ class Patch_UserRequest extends FormRequest
             'status.min' => 'O status deve conter o no minimo um id válido.',
             'status.max' => 'O status não deve ser maior que 1.',
             'status.integer' => 'O status deve ser um integer.',
+            'password_last.required' => 'O password_last é obrigatório!',
+            'password_last.max' => 'O password_last não deve ter mais de 10 caracteres.',
+            'password_last.min' => 'O password_last deve ter pelo menos 6 caracteres.',
+            'password_new.required' => 'O password_new é obrigatório!',
+            'password_new.max' => 'O password_new não deve ter mais de 10 caracteres.',
+            'password_new.min' => 'O password_new deve ter pelo menos 6 caracteres.',
         ];
     }
 }
