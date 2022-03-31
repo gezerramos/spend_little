@@ -31,6 +31,10 @@ class Patch_AccountRequest extends FormRequest
             'level_id' => 'min:1 | integer',
             'status' => 'min:0 | max:1 | integer',
             'password' => 'min:4|max:40 | string',
+            'address' => 'min:4|max:80 | string',
+            'number' => 'min:4|max:40 | integer',
+            'phone' => 'min:4|max:20 | string',
+            'complement' => 'min:4|max:30 | string',
             'imagem' => 'file|mimes:jpeg,jpg,png|max:10000' // max 10000kb
         ];
     }
@@ -61,6 +65,17 @@ class Patch_AccountRequest extends FormRequest
             'password.min' => 'O password deve ter pelo menos 6 caracteres.',
             'imagem.max' => 'A imagem não deve ter mais de 10000kb.',
             'imagem.mimes' => 'A imagem é obrigatória.',
+            'number.min' => 'O number deve conter o no minimo um id válido.',
+            'number.integer' => 'O number deve ser um integer.',
+            'address.max' => 'O address não deve ter mais de 80 caracteres.',
+            'address.min' => 'O address deve ter pelo menos 4 caracteres.',
+            'address.string' => 'O address deve ser uma string.',
+            'phone.max' => 'O phone não deve ter mais de 20 caracteres.',
+            'phone.min' => 'O phone deve ter pelo menos 4 caracteres.',
+            'phone.string' => 'O phone deve ser uma string.',
+            'complement.max' => 'O complement não deve ter mais de 30 caracteres.',
+            'complement.min' => 'O complement deve ter pelo menos 4 caracteres.',
+            'complement.string' => 'O complement deve ser uma string.',
 
         ];
     }

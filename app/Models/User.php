@@ -9,7 +9,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class User extends Authenticatable implements JWTSubject
 {
 
-  protected $fillable = ['name', 'email', 'password', 'level_id', 'status', 'image'];
+  protected $fillable = ['name', 'email', 'password', 'level_id', 'status', 'image', 'address', 'number', 'phone', 'complement'];
   //protected $table = 'users';
 
   public static function innerjoinUserLevel($email)
@@ -23,6 +23,10 @@ class User extends Authenticatable implements JWTSubject
         'users.created_at',
         'users.level_id',
         'users.image',
+        'users.address',
+        'users.number',
+        'users.phone',
+        'users.complement',
         'levels.name as level'
       )
       ->get()[0];
@@ -40,6 +44,10 @@ class User extends Authenticatable implements JWTSubject
         'users.created_at',
         'users.level_id',
         'users.image',
+        'users.address',
+        'users.number',
+        'users.phone',
+        'users.complement',
         'levels.name as level'
       )
       ->get()[0];

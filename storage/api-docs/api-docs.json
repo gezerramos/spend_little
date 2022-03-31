@@ -19,6 +19,86 @@
         }
     ],
     "paths": {
+        "/account": {
+            "post": {
+                "tags": [
+                    "/account"
+                ],
+                "summary": "Account",
+                "description": "Rota responsavel por criar account!",
+                "operationId": "cd73684cb2b781a6453236e15acf82f2",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "email",
+                                    "password",
+                                    "level_id"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    },
+                                    "address": {
+                                        "type": "string"
+                                    },
+                                    "number": {
+                                        "type": "number"
+                                    },
+                                    "phone": {
+                                        "type": "string"
+                                    },
+                                    "complement": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "name": "Fulano de Tal",
+                                    "email": "fulano@gmail.com",
+                                    "password": "123456",
+                                    "address": "Rua teste ",
+                                    "phone": "(73) 988203656",
+                                    "number": "18",
+                                    "complement": "bloco10ap23"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "201": {
+                        "description": "Created"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "409": {
+                        "description": "Conflict"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        },
         "/account/me": {
             "get": {
                 "tags": [
@@ -76,13 +156,29 @@
                                     },
                                     "password": {
                                         "type": "string"
+                                    },
+                                    "address": {
+                                        "type": "string"
+                                    },
+                                    "number": {
+                                        "type": "number"
+                                    },
+                                    "phone": {
+                                        "type": "string"
+                                    },
+                                    "complement": {
+                                        "type": "string"
                                     }
                                 },
                                 "type": "object",
                                 "example": {
                                     "name": "Fulano de Tal",
                                     "email": "fulano@gmail.com",
-                                    "password": "123456"
+                                    "password": "123456",
+                                    "address": "Rua teste ",
+                                    "phone": "(73) 988203656",
+                                    "number": "18",
+                                    "complement": "bloco10ap23"
                                 }
                             }
                         }
@@ -316,77 +412,6 @@
                 "summary": "User",
                 "description": "Rota responsavel por listar todos os usuarios!",
                 "operationId": "29fe6261905366f57d192d4f07905f87",
-                "responses": {
-                    "200": {
-                        "description": "Success"
-                    },
-                    "201": {
-                        "description": "Created"
-                    },
-                    "401": {
-                        "description": "Unauthorized"
-                    },
-                    "403": {
-                        "description": "Forbidden"
-                    },
-                    "404": {
-                        "description": "Not Found"
-                    },
-                    "409": {
-                        "description": "Conflict"
-                    },
-                    "500": {
-                        "description": "Internal Server Error"
-                    }
-                },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
-            },
-            "post": {
-                "tags": [
-                    "/user"
-                ],
-                "summary": "user",
-                "description": "Rota responsavel por criar usuário!",
-                "operationId": "9356d67ef616680f978450c4adf60a00",
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "required": [
-                                    "name",
-                                    "email",
-                                    "password",
-                                    "level_id"
-                                ],
-                                "properties": {
-                                    "name": {
-                                        "type": "string"
-                                    },
-                                    "email": {
-                                        "type": "string"
-                                    },
-                                    "password": {
-                                        "type": "string"
-                                    },
-                                    "level_id": {
-                                        "type": "number"
-                                    }
-                                },
-                                "type": "object",
-                                "example": {
-                                    "name": "Fulano de Tal",
-                                    "email": "fulano@gmail.com",
-                                    "password": "123456",
-                                    "level_id": 1
-                                }
-                            }
-                        }
-                    }
-                },
                 "responses": {
                     "200": {
                         "description": "Success"

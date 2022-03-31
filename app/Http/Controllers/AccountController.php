@@ -10,10 +10,101 @@ use \Tymon\JWTAuth\Facades\JWTAuth;
 use App\Http\Requests\Patch_AccountRequest;
 use Illuminate\Support\Facades\Storage;
 
-
 class AccountController extends Controller
 {
+    /**
+     * @OA\Post(
+     *      path="/account", 
+     *      tags={"/account"},
+     *      summary="Account",
+     *      description="Rota responsavel por criar account!",
+     *     @OA\RequestBody(
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema( 
+     *                 required={"name","email","password","level_id"},
+     *                 @OA\Property(
+     *                     property="name",
+     *                     type="string"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="email",
+     *                     type="string"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="password",
+     *                     type="string"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="address",
+     *                     type="string"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="number",
+     *                     type="number"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="phone",
+     *                     type="string"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="complement",
+     *                     type="string"
+     *                 ),
+     *                 example={"name": "Fulano de Tal",
+     *                          "email": "fulano@gmail.com", 
+     *                          "password": "123456",
+     *                          "address": "Rua teste ",
+     *                          "phone": "(73) 988203656",
+     *                          "number": "18",
+     *                          "complement":"bloco10ap23"}
+     *             )
+     *         )
+     *     ),
+     *      @OA\Response (response="200", description="Success"),
+     *      @OA\Response (response="201", description="Created"),
+     *      @OA\Response (response="401", description="Unauthorized"),
+     *      @OA\Response (response="403", description="Forbidden"),
+     *      @OA\Response (response="404", description="Not Found"),
+     *      @OA\Response (response="409", description="Conflict"),
+     *      @OA\Response (response="500", description="Internal Server Error"),
+     * )
+     */
+    public function createUser(Post_UserRequest $request)
+    {
+        try {
+            $mailTest = User::firstWhere('email', $request['email']);
+            if ($mailTest) {
+                return response()->json([
+                    "error:" => "true",
+                    "message" => "Email já existe em nossa base de dados!",
+                ], 409);
+            }
 
+            $user = new User;
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->password = bcrypt($request->password);
+            $user->level_id = 1;
+            $user->address =$request->address;
+            $user->phone =$request->phone;
+            $user->number =$request->number;
+            $user->complement =$request->complement;
+            $user->save();
+
+
+            return response()->json(
+                'Usuário criado com sucesso!',
+                201
+            );
+        } catch (\Throwable  $e) {
+
+            return response()->json([
+                "error:" => "true",
+                "message" => $e->getMessage(),
+            ], $e->status);
+        }
+    }
     /**
      * @OA\Get(
      *      path="/account/me", 
@@ -106,10 +197,29 @@ class AccountController extends Controller
      *                     property="password",
      *                     type="string"
      *                 ),
+     *                 @OA\Property(
+     *                     property="address",
+     *                     type="string"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="number",
+     *                     type="number"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="phone",
+     *                     type="string"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="complement",
+     *                     type="string"
+     *                 ),
      *                 example={"name": "Fulano de Tal",
-     *                          "email": "fulano@gmail.com",
-     *                          "password": "123456"
-     *                          }
+     *                          "email": "fulano@gmail.com", 
+     *                          "password": "123456",
+     *                          "address": "Rua teste ",
+     *                          "phone": "(73) 988203656",
+     *                          "number": "18",
+     *                          "complement":"bloco10ap23"}
      *             )
      *         )
      *   ),
@@ -212,9 +322,11 @@ class AccountController extends Controller
                 ], 409);
             }
             $user = User::find($request->userID);
+
             Storage::disk('public')->delete($user->image);//delete imagem antiga
             
             $image = $request->file('imagem');
+
             $image_urn = $image->store('imagens', 'public');
 
             $user->image = $image_urn;
