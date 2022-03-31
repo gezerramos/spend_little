@@ -25,7 +25,7 @@ class AuthenticMD extends Authenticate
     public function handle($request, Closure $next)
     {
         try {
-            dd($request);
+
             $this->authenticate($request);
 
             $token = JWTAuth::getToken();
