@@ -278,39 +278,39 @@ class AccountController extends Controller
         }
     }
 
-    /**
-     * @OA\Post(
-     *      path="/account/me/image", 
-     *      tags={"/account"},
-     *      summary="Account",
-     *      description="Rota responsavel por editar conta do usuario logado!",
-     *      security= {{"bearerAuth": {}}},
-     *   @OA\RequestBody(
-     *       @OA\MediaType(
-     *           mediaType="multipart/form-data",
-     *           @OA\Schema(
-     *               type="object", 
-     *               @OA\Property(
-     *                  property="imagem",
-     *                  type="array",
-     *                  @OA\Items(
-     *                       type="string",
-     *                       format="binary",
-     *                  ),
-     *               ),
-     *           ),
-     *       ),
-     *   ),
-     *      @OA\Response (
-     *          response="200", description="Success"),
-     *      @OA\Response (response="201", description="Created"),
-     *      @OA\Response (response="401", description="Unauthorized"),
-     *      @OA\Response (response="403", description="Forbidden"),
-     *      @OA\Response (response="404", description="Not Found"),
-     *      @OA\Response (response="409", description="Conflict"),
-     *      @OA\Response (response="500", description="Internal Server Error"),
-     * )
-     */
+    // /**
+    //  * @OA\Post(
+    //  *      path="/account/me/image", 
+    //  *      tags={"/account"},
+    //  *      summary="Account",
+    //  *      description="Rota responsavel por editar conta do usuario logado!",
+    //  *      security= {{"bearerAuth": {}}},
+    //  *   @OA\RequestBody(
+    //  *       @OA\MediaType(
+    //  *           mediaType="multipart/form-data",
+    //  *           @OA\Schema(
+    //  *               type="object", 
+    //  *               @OA\Property(
+    //  *                  property="imagem",
+    //  *                  type="array",
+    //  *                  @OA\Items(
+    //  *                       type="string",
+    //  *                       format="binary",
+    //  *                  ),
+    //  *               ),
+    //  *           ),
+    //  *       ),
+    //  *   ),
+    //  *      @OA\Response (
+    //  *          response="200", description="Success"),
+    //  *      @OA\Response (response="201", description="Created"),
+    //  *      @OA\Response (response="401", description="Unauthorized"),
+    //  *      @OA\Response (response="403", description="Forbidden"),
+    //  *      @OA\Response (response="404", description="Not Found"),
+    //  *      @OA\Response (response="409", description="Conflict"),
+    //  *      @OA\Response (response="500", description="Internal Server Error"),
+    //  * )
+    //  */
     public function updateAccountImage(Patch_AccountRequest $request)
     {
         try {
