@@ -10,10 +10,11 @@ use \App\Http\Controllers\LevelController;
 //auth
 Route::post('/v1/authentication', [AuthController::class, 'post_Auth'])->name('authentication.auth');
 Route::post('/v1/account', [AccountController::class, 'createUser'])->name('user.create');
+Route::middleware(AuthenticMD::class)->get('/v1/authentication/token', [AuthController::class, 'token_verify']);
 
 Route::middleware(AuthenticMD::class)->prefix('/v1')->group(function () {
 
-   
+    
     Route::get('/account/me', [AccountController::class, 'getInfoAccount'])->name('account.me');
     Route::patch('/account/me', [AccountController::class, 'updateAccount'])->name('account.me');
     //Route::post('/account/me/image', [AccountController::class, 'updateAccountImage'])->name('account.me');

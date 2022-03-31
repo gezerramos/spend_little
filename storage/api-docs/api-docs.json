@@ -366,6 +366,47 @@
                 }
             }
         },
+        "/authentication/token": {
+            "get": {
+                "tags": [
+                    "/authentication"
+                ],
+                "summary": "Authentication",
+                "description": "Responsible route verify token!",
+                "operationId": "539378e2567a310cd33bf91ba85fa440",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "201": {
+                        "description": "Created"
+                    },
+                    "202": {
+                        "description": "Accepted"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "409": {
+                        "description": "Conflict"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/level": {
             "get": {
                 "tags": [

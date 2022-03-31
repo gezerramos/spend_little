@@ -74,4 +74,39 @@ class AuthController extends Controller
             ], 500);
         }
     }
+   /**
+     * @OA\Get(
+     *      path="/authentication/token", 
+     *      tags={"/authentication"},
+     *      summary="Authentication",
+     *      description="Responsible route verify token!",
+     *      security= {{"bearerAuth": {}}},
+     *      @OA\Response (
+     *          response="200", description="Success"),
+     *      @OA\Response (response="201", description="Created"),
+     *      @OA\Response (response="202", description="Accepted"),
+     *      @OA\Response (response="401", description="Unauthorized"),
+     *      @OA\Response (response="403", description="Forbidden"),
+     *      @OA\Response (response="404", description="Not Found"),
+     *      @OA\Response (response="409", description="Conflict"),
+     *      @OA\Response (response="500", description="Internal Server Error"),
+     * )
+     */
+    
+    public function Token_Verify(Request $request)
+    {
+        try {
+
+            return response()->json([
+                "error:" => "true",
+                "message" => "Token valído!",
+            ], 202);
+        } catch (\Exception  $e) {
+
+            return response()->json([
+                "error:" => "true",
+                "message" => $e->getMessage(),
+            ], 500);
+        }
+    }
 }
