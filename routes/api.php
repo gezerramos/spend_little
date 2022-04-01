@@ -19,7 +19,7 @@ Route::middleware(AuthenticMD::class)->prefix('/v1')->group(function () {
 
     //user comun
     Route::get('/account/me', [AccountController::class, 'getInfoAccount'])->name('account.me');
-    Route::patch('/account/me', [AccountController::class, 'updateAccount'])->name('account.me');
+    Route::put('/account/me', [AccountController::class, 'updateAccount'])->name('account.me');
     Route::post('/account/me/image', [AccountController::class, 'updateAccountImage'])->name('account.me');
     Route::get('/account/refresh', [AccountController::class, 'refreshToken'])->name('account.refresh');
     

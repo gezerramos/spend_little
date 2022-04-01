@@ -175,7 +175,7 @@ class AccountController extends Controller
         //$user = User::firstWhere('email', $credenciais['email']);
     }
     /**
-     * @OA\Patch(
+     * @OA\Put(
      *      path="/account/me", 
      *      tags={"/account"},
      *      summary="Account",
