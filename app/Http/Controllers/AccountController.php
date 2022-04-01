@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-//use App\Http\Requests\Post_UserRequest;
+use App\Http\Requests\Post_UserRequest;
 //use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 //use \Tymon\JWTAuth\Facades\JWTAuth;
-use App\Http\Requests\Patch_AccountRequest;
+//use App\Http\Requests\Patch_AccountRequest;
 use Illuminate\Support\Facades\Storage;
 
 class AccountController extends Controller
@@ -233,7 +233,7 @@ class AccountController extends Controller
      *      @OA\Response (response="500", description="Internal Server Error"),
      * )
      */
-    public function updateAccount(Patch_AccountRequest $request)
+    public function updateAccount(Post_UserRequest $request)
     {
         try {
 
@@ -311,42 +311,42 @@ class AccountController extends Controller
     //  *      @OA\Response (response="500", description="Internal Server Error"),
     //  * )
     //  */
-    public function updateAccountImage(Patch_AccountRequest $request)
-    {
-        try {
+    // public function updateAccountImage(Patch_AccountRequest $request)
+    // {
+    //     try {
 
-            if (!$request->file('imagem')) {
-                return response()->json([
-                    "error:" => "true",
-                    "message" => "Imagem não foi enviada!",
-                ], 409);
-            }
-            $user = User::find($request->userID);
+    //         if (!$request->file('imagem')) {
+    //             return response()->json([
+    //                 "error:" => "true",
+    //                 "message" => "Imagem não foi enviada!",
+    //             ], 409);
+    //         }
+    //         $user = User::find($request->userID);
 
-            Storage::disk('public')->delete($user->image);//delete imagem antiga
+    //         Storage::disk('public')->delete($user->image);//delete imagem antiga
             
-            $image = $request->file('imagem');
+    //         $image = $request->file('imagem');
 
-            $image_urn = $image->store('imagens', 'public');
+    //         $image_urn = $image->store('imagens', 'public');
 
-            $user->image = $image_urn;
-            $user->update();
+    //         $user->image = $image_urn;
+    //         $user->update();
 
-            return response()->json(
-                [],
-                200
-            );
-        } catch (\Throwable  $e) {
+    //         return response()->json(
+    //             [],
+    //             200
+    //         );
+    //     } catch (\Throwable  $e) {
 
-            return response()->json([
-                "error:" => "true",
-                "message" => $e->getMessage(),
-            ], $e->status);
-        }
-    }
+    //         return response()->json([
+    //             "error:" => "true",
+    //             "message" => $e->getMessage(),
+    //         ], $e->status);
+    //     }
+    // }
 
-    public function deleteUser($id)
-    {
-        // logic to delete a User record goes here
-    }
+    // public function deleteUser($id)
+    // {
+    //     // logic to delete a User record goes here
+    // }
 }
