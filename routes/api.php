@@ -6,7 +6,7 @@ use \App\Http\Controllers\AccountController;
 use \App\Http\Controllers\AuthController;
 use \App\Http\Middleware\AuthenticMD;
 use \App\Http\Controllers\LevelController;
-use \App\Http\Controllers\MerchantsController;
+use \App\Http\Controllers\IngredientsController;
 
 //auth
 Route::post('/v1/authentication', [AuthController::class, 'post_Auth'])->name('authentication.auth');
@@ -34,6 +34,8 @@ Route::middleware(AuthenticMD::class)->prefix('/v1')->group(function () {
     Route::post('/merchants', [MerchantsController::class, 'createMerchant'])->name('merchants.create');
     Route::patch('/merchants/{id}', [MerchantsController::class, 'updateMerchant'])->name('merchants.update');
 
+    Route::get('/ingredients', [IngredientsController::class, 'allIngredients'])->name('ingredients.all');
+    
 });
 
 

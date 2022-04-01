@@ -351,6 +351,44 @@
                 ]
             }
         },
+        "/ingredients": {
+            "get": {
+                "tags": [
+                    "/ingredients"
+                ],
+                "summary": "Ingredients",
+                "description": "Rota responsavel por listar todos os usuarios!",
+                "operationId": "3186803f15f2825f0b248b79c0c40db7",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "201": {
+                        "description": "Created"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "409": {
+                        "description": "Conflict"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/level": {
             "get": {
                 "tags": [
@@ -359,196 +397,6 @@
                 "summary": "level",
                 "description": "Rota responsavel por listar todos niveis de acesso!",
                 "operationId": "c800496a3b8690600b6a1b0fdbca0e62",
-                "responses": {
-                    "200": {
-                        "description": "Success"
-                    },
-                    "201": {
-                        "description": "Created"
-                    },
-                    "401": {
-                        "description": "Unauthorized"
-                    },
-                    "403": {
-                        "description": "Forbidden"
-                    },
-                    "404": {
-                        "description": "Not Found"
-                    },
-                    "409": {
-                        "description": "Conflict"
-                    },
-                    "500": {
-                        "description": "Internal Server Error"
-                    }
-                },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
-            }
-        },
-        "/merchants": {
-            "get": {
-                "tags": [
-                    "/merchants"
-                ],
-                "summary": "Merchants",
-                "description": "Rota responsavel por listar todos os usuarios!",
-                "operationId": "124e388a3a72f3fae5977adb84e5a29d",
-                "responses": {
-                    "200": {
-                        "description": "Success"
-                    },
-                    "201": {
-                        "description": "Created"
-                    },
-                    "401": {
-                        "description": "Unauthorized"
-                    },
-                    "403": {
-                        "description": "Forbidden"
-                    },
-                    "404": {
-                        "description": "Not Found"
-                    },
-                    "409": {
-                        "description": "Conflict"
-                    },
-                    "500": {
-                        "description": "Internal Server Error"
-                    }
-                },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
-            },
-            "post": {
-                "tags": [
-                    "/merchants"
-                ],
-                "summary": "Merchants",
-                "description": "Rota responsavel por criar empresa!",
-                "operationId": "c962bf305dba584c0cf34c76f2ea5ed5",
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "required": [
-                                    "name",
-                                    "corporate_name",
-                                    "description",
-                                    "status"
-                                ],
-                                "properties": {
-                                    "name": {
-                                        "type": "string"
-                                    },
-                                    "corporate_name": {
-                                        "type": "string"
-                                    },
-                                    "description": {
-                                        "type": "string"
-                                    },
-                                    "status": {
-                                        "type": "number"
-                                    }
-                                },
-                                "type": "object",
-                                "example": {
-                                    "name": "Burger2",
-                                    "corporate_name": "Burger2 VCa ME",
-                                    "description": "Teste de descrição",
-                                    "status": "0 ou 1"
-                                }
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "Success"
-                    },
-                    "201": {
-                        "description": "Created"
-                    },
-                    "401": {
-                        "description": "Unauthorized"
-                    },
-                    "403": {
-                        "description": "Forbidden"
-                    },
-                    "404": {
-                        "description": "Not Found"
-                    },
-                    "409": {
-                        "description": "Conflict"
-                    },
-                    "500": {
-                        "description": "Internal Server Error"
-                    }
-                },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
-            }
-        },
-        "/merchants/{id}": {
-            "patch": {
-                "tags": [
-                    "/merchants"
-                ],
-                "summary": "Merchants",
-                "description": "Rota responsavel por criar empresa!",
-                "operationId": "58251da89782ec51fd24dc841dc6e5f5",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "Parameter example",
-                        "required": true
-                    }
-                ],
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "required": [
-                                    "name",
-                                    "corporate_name",
-                                    "description",
-                                    "status"
-                                ],
-                                "properties": {
-                                    "name": {
-                                        "type": "string"
-                                    },
-                                    "corporate_name": {
-                                        "type": "string"
-                                    },
-                                    "description": {
-                                        "type": "string"
-                                    },
-                                    "status": {
-                                        "type": "number"
-                                    }
-                                },
-                                "type": "object",
-                                "example": {
-                                    "name": "Burger2",
-                                    "corporate_name": "Burger2 VCa ME",
-                                    "description": "Teste de descrição",
-                                    "status": "0 ou 1"
-                                }
-                            }
-                        }
-                    }
-                },
                 "responses": {
                     "200": {
                         "description": "Success"

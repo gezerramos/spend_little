@@ -6,43 +6,43 @@ use App\Http\Requests\Post_MerchantRequest;
 use App\Http\Requests\Patch_MerchantRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Merchant;
+use App\Models\Ingredient;
 use Illuminate\Validation\ValidationException;
 
-class MerchantsController extends Controller
+class IngredientsController extends Controller
 {
     // /**
     //  * @OA\Post(
-    //  *      path="/merchants", 
-    //  *      tags={"/merchants"},
-    //  *      summary="Merchants",
+    //  *      path="/ingredients", 
+    //  *      tags={"/ingredients"},
+    //  *      summary="Ingredients",
     //  *      security= {{"bearerAuth": {}}},
-    //  *      description="Rota responsavel por criar empresa!",
+    //  *      description="Rota responsavel por criar Ingredients!",
     //  *     @OA\RequestBody(
     //  *         @OA\MediaType(
     //  *             mediaType="application/json",
     //  *             @OA\Schema( 
-    //  *                 required={"name","corporate_name","description","status"},
+    //  *                 required={"name","price","status", "types_id"},
     //  *                 @OA\Property(
     //  *                     property="name",
     //  *                     type="string"
     //  *                 ),
     //  *                 @OA\Property(
-    //  *                     property="corporate_name",
-    //  *                     type="string"
-    //  *                 ),
-    //  *                 @OA\Property(
-    //  *                     property="description",
-    //  *                     type="string"
+    //  *                     property="price",
+    //  *                     type="number"
     //  *                 ),
     //  *                 @OA\Property(
     //  *                     property="status",
     //  *                     type="number"
     //  *                 ),
-    //  *                 example={"name": "Burger2",
-    //  *                          "corporate_name": "Burger2 VCa ME", 
-    //  *                          "description": "Teste de descrição",
+    //  *                 @OA\Property(
+    //  *                     property="types_id",
+    //  *                     type="number"
+    //  *                 ),
+    //  *                 example={"name": "3 Queijos",
+    //  *                          "price": 5.20, 
     //  *                          "status": "0 ou 1",
+    //  *                           "types_id": 1
     //  *                          }
     //  *             )
     //  *         )
@@ -59,7 +59,7 @@ class MerchantsController extends Controller
     public function createMerchant(Post_MerchantRequest $request)
     {
         try {
-            $mailTest = Merchant::firstWhere('name', $request['name']);
+            $mailTest = Ingredient::firstWhere('name', $request['name']);
             if ($mailTest) {
                 return response()->json([
                     "error:" => "true",
@@ -67,7 +67,7 @@ class MerchantsController extends Controller
                 ], 409);
             }
 
-            $merchant = new Merchant;
+            $merchant = new Ingredient;
             $merchant->name = $request->name;
             $merchant->corporate_name = $request->corporate_name;
             $merchant->description = $request->description;
@@ -143,7 +143,7 @@ class MerchantsController extends Controller
     public function updateMerchant(Patch_MerchantRequest $request, $id)
     {
         try {
-            $merchant = Merchant::find($id);
+            $merchant = Ingredient::find($id);
             if (!$merchant) {
                 return response()->json([
                     "error:" => "true",
@@ -175,40 +175,40 @@ class MerchantsController extends Controller
         }
     }
 
-    //  /**
-    //  * @OA\Get(
-    //  *      path="/merchants", 
-    //  *      tags={"/merchants"},
-    //  *      summary="Merchant",
-    //  *      description="Rota responsavel por listar todos os usuarios!",
-    //  *      security= {{"bearerAuth": {}}},
-    //  *      @OA\Response (
-    //  *          response="200", description="Success"),
-    //  *      @OA\Response (response="201", description="Created"),
-    //  *      @OA\Response (response="401", description="Unauthorized"),
-    //  *      @OA\Response (response="403", description="Forbidden"),
-    //  *      @OA\Response (response="404", description="Not Found"),
-    //  *      @OA\Response (response="409", description="Conflict"),
-    //  *      @OA\Response (response="500", description="Internal Server Error"),
-    //  * )
-    //  */
-    public function allMerchant(Request $request)
+     /**
+     * @OA\Get(
+     *      path="/ingredients", 
+     *      tags={"/ingredients"},
+     *      summary="Ingredients",
+     *      description="Rota responsavel por listar todos os usuarios!",
+     *      security= {{"bearerAuth": {}}},
+     *      @OA\Response (
+     *          response="200", description="Success"),
+     *      @OA\Response (response="201", description="Created"),
+     *      @OA\Response (response="401", description="Unauthorized"),
+     *      @OA\Response (response="403", description="Forbidden"),
+     *      @OA\Response (response="404", description="Not Found"),
+     *      @OA\Response (response="409", description="Conflict"),
+     *      @OA\Response (response="500", description="Internal Server Error"),
+     * )
+     */
+    public function allIngredients(Request $request)
     {
 
         try {
-            $merchant = Merchant::all([
+            $ingredients = Ingredient::all([
                 'id',
                 'name',
-                'corporate_name',
-                'description',
+                'price',
+                'types_id',
                 'status',
                 'created_at',
                 'updated_at'
             ]);
 
             $info = [
-                'count' => count($merchant),
-                'content' => $merchant,
+                'count' => count($ingredients),
+                'content' => $ingredients,
             ];
             return response()->json(
                 $info,
