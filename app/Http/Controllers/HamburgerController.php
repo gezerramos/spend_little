@@ -143,16 +143,16 @@ class HamburgerController extends Controller
             for ($i = 0; $i <= count($amburgers) - 1; $i++) {
 
                 $optionals_items = Optionals_Burger::innerjoinHamburgerOpMeInfo($amburgers[$i]->id);
+                $optionals_price = 0;
                 if (count($optionals_items) > 0) {
-
-                    $optionals_price = 0;
+                    
                     for ($o = 0; $o <= count($optionals_items) - 1; $o++) {
                         $optionals_price =   $optionals_price + $optionals_items[$o]->price;
                     }
-                    $amburgers[$i]->count_optionals = count($optionals_items);
-                    $amburgers[$i]->optionals = $optionals_items;
-                    $amburgers[$i]->total_price = $amburgers[$i]->breads_price + $amburgers[$i]->meats_price + $optionals_price;
                 }
+                $amburgers[$i]->count_optionals = count($optionals_items);
+                $amburgers[$i]->optionals = $optionals_items;
+                $amburgers[$i]->total_price = $amburgers[$i]->breads_price + $amburgers[$i]->meats_price + $optionals_price;
             }
 
             $info = [

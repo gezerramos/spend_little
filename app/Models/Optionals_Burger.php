@@ -20,7 +20,7 @@ class Optionals_Burger extends Model
       $user = Optionals_Burger::where('optionalsburger.hamburger_id', $hamburger_id)
         ->join('optionals', 'optionalsburger.optionals_id', '=', 'optionals.id')
         ->select(
-          'optionalsburger.id',
+          //'optionalsburger.id',
           'optionalsburger.optionals_id',
           'optionalsburger.hamburger_id',
           'optionals.name as optional',
