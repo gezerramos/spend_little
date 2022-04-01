@@ -243,9 +243,9 @@ class AccountController extends Controller
                     "error:" => "true",
                     "message" => "Usuario não encontrado!",
                 ], 409);
-            } */
+            }
 
-           /*  $mail = User::User_Email_Equals($request->userID, $request['email'],);
+            $mail = User::User_Email_Equals($request->userID, $request['email'],);
             if (count($mail) > 0) {
                 return response()->json([
                     "error:" => "true",
