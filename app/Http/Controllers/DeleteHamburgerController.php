@@ -17,16 +17,22 @@ use Illuminate\Validation\ValidationException;
 class DeleteHamburgerController extends Controller
 {
     /**
-     * @OA\Get(
-     *      path="/hamburger/{id}/me", 
-     *      tags={"/hamburger"},
+     * @OA\Delete(
+     *      path="/hamburger/{hamburger_id}/optionals/{optionals_id}/me", 
+     *      tags={"/hamburger/me"},
      *      summary="Damburger",
      *      description="Rota responsavel recuperar usuario!",
      *      security= {{"bearerAuth": {}}},
      *      @OA\Parameter(
      *         description="Parameter example",
      *         in="path",
-     *         name="id",
+     *         name="hamburger_id",
+     *         required=true,
+     *     ),
+     *      @OA\Parameter(
+     *         description="Parameter example",
+     *         in="path",
+     *         name="optionals_id",
      *         required=true,
      *     ),
      *      @OA\Response (
@@ -39,7 +45,7 @@ class DeleteHamburgerController extends Controller
      *      @OA\Response (response="500", description="Internal Server Error"),
      * )
      */
-    public function destroyHamburgerUser($hamburger_id, $optionals_id)
+    public function destroyHamburgerUser(Request $request, $hamburger_id, $optionals_id)
     {
         try {
             function error($value)
@@ -49,14 +55,14 @@ class DeleteHamburgerController extends Controller
             is_numeric($optionals_id) ?: error('optionals_id');
             is_numeric($hamburger_id) ?: error('hamburger_id');
 
-            $StatusBurger = Hamburger::where('status_orders_id', '!=', 1)
+            $StatusBurger = Hamburger::where('users_id', '=', $request->userID)
                 ->where('id', '=', $hamburger_id)->get();
 
-            if (count($StatusBurger) > 0) {
+            if (count($StatusBurger) < 1 or $StatusBurger[0]->status_orders_id > 1) {
                 return response()->json(
                     [
                         "error:" => "true",
-                        "message" => "Hamburger está em preparo!",
+                        "message" => "Hamburger não pode ser alterado!",
                     ],
                     409
                 );

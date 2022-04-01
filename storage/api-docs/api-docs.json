@@ -389,6 +389,58 @@
                 ]
             }
         },
+        "/hamburger/{hamburger_id}/optionals/{optionals_id}/me": {
+            "delete": {
+                "tags": [
+                    "/hamburger/me"
+                ],
+                "summary": "Damburger",
+                "description": "Rota responsavel recuperar usuario!",
+                "operationId": "120c8fc3a91ef93130323ab15a1a6630",
+                "parameters": [
+                    {
+                        "name": "hamburger_id",
+                        "in": "path",
+                        "description": "Parameter example",
+                        "required": true
+                    },
+                    {
+                        "name": "optionals_id",
+                        "in": "path",
+                        "description": "Parameter example",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "201": {
+                        "description": "Created"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "409": {
+                        "description": "Conflict"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/hamburger/me": {
             "get": {
                 "tags": [
