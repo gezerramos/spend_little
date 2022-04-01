@@ -7,7 +7,7 @@ use App\Http\Requests\Post_UserRequest;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 //use \Tymon\JWTAuth\Facades\JWTAuth;
-//use App\Http\Requests\Patch_AccountRequest;
+use App\Http\Requests\Patch_AccountRequest;
 use Illuminate\Support\Facades\Storage;
 
 class AccountController extends Controller
@@ -233,7 +233,7 @@ class AccountController extends Controller
      *      @OA\Response (response="500", description="Internal Server Error"),
      * )
      */
-    public function updateAccount(Post_UserRequest $request)
+    public function updateAccount(Patch_AccountRequest $request)
     {
         try {
 
