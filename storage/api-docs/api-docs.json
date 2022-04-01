@@ -10,7 +10,7 @@
     },
     "servers": [
         {
-            "url": "https://spend-little.herokuapp.com/api/v1",
+            "url": "https://spendlittle.herokuapp.com/api/v1",
             "description": "API(Produção)"
         },
         {
