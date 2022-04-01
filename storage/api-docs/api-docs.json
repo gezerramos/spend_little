@@ -11,7 +11,7 @@
     "servers": [
         {
             "url": "https://spendlittle.herokuapp.com/api/v1",
-            "description": "API(Produção)"
+            "description": "API(Production)"
         },
         {
             "url": "http://localhost:8000/api/v1",
@@ -136,13 +136,13 @@
                     }
                 ]
             },
-            "patch": {
+            "put": {
                 "tags": [
                     "/account"
                 ],
                 "summary": "Account",
                 "description": "Rota responsavel por editar conta do usuario logado!",
-                "operationId": "d375f0c480fcb91943e1fb98e822f11d",
+                "operationId": "9058750c00bfb65a7b4ce63cf2c901a0",
                 "requestBody": {
                     "content": {
                         "application/json": {
