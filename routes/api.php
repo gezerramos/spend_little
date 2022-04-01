@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\UserController;
 use \App\Http\Controllers\AccountController;
+use \App\Http\Controllers\UpdateAccountController;
 use \App\Http\Controllers\AuthController;
 use \App\Http\Middleware\AuthenticMD;
 use \App\Http\Controllers\LevelController;
@@ -19,7 +20,7 @@ Route::middleware(AuthenticMD::class)->prefix('/v1')->group(function () {
 
     //user comun
     Route::get('/account/me', [AccountController::class, 'getInfoAccount'])->name('account.me');
-    Route::patch('/account/me', [AccountController::class, 'updateAccount'])->name('account.me');
+    Route::patch('/account/me', [UpdateAccountController::class, 'updateAccount'])->name('account.me');
     Route::post('/account/me/image', [AccountController::class, 'updateAccountImage'])->name('account.me');
     Route::get('/account/refresh', [AccountController::class, 'refreshToken'])->name('account.refresh');
     
