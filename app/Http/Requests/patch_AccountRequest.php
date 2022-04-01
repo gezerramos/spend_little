@@ -35,7 +35,7 @@ class Patch_AccountRequest extends FormRequest
             'number' => 'min:4|max:40 | integer',
             'phone' => 'min:4|max:20 | string',
             'complement' => 'min:4|max:30 | string',
-            'imagem' => 'file|mimes:jpeg,jpg,png|max:10000' // max 10000kb
+            'imagem' => 'file|mimes:jpeg,jpg,png|max:10000', // max 10000kb
         ];
     }
     protected function failedValidation(Validator $validator)
