@@ -351,6 +351,44 @@
                 ]
             }
         },
+        "/carnes": {
+            "get": {
+                "tags": [
+                    "/carnes"
+                ],
+                "summary": "Carne",
+                "description": "Rota responsavel por listar todos tipos de carnes!",
+                "operationId": "4da6aa99e989b63aa3b9ff4fb5a576f7",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "201": {
+                        "description": "Created"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "409": {
+                        "description": "Conflict"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/level": {
             "get": {
                 "tags": [

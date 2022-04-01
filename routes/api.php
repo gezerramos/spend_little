@@ -7,6 +7,7 @@ use \App\Http\Controllers\AuthController;
 use \App\Http\Middleware\AuthenticMD;
 use \App\Http\Controllers\LevelController;
 use \App\Http\Controllers\PaoController;
+use \App\Http\Controllers\CarnesController;
 
 //auth
 Route::post('/v1/authentication', [AuthController::class, 'post_Auth'])->name('authentication.auth');
@@ -35,6 +36,8 @@ Route::middleware(AuthenticMD::class)->prefix('/v1')->group(function () {
     Route::patch('/merchants/{id}', [MerchantsController::class, 'updateMerchant'])->name('merchants.update');
 
     Route::get('/paes', [PaoController::class, 'allPaes'])->name('paes.all');
+
+    Route::get('/carnes', [CarnesController::class, 'allCarnes'])->name('carnes.all');
     
 });
 
