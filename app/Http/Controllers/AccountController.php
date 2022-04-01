@@ -233,7 +233,7 @@ class AccountController extends Controller
      *      @OA\Response (response="500", description="Internal Server Error"),
      * )
      */
-    public function updateAccount(Request $request)
+    public function updateAccount(Patch_AccountRequest $request)
     {
         try {
 
