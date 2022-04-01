@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 //use \Tymon\JWTAuth\Facades\JWTAuth;
 use App\Http\Requests\Patch_AccountRequest;
-use Illuminate\Support\Facades\Storage;
+//use Illuminate\Support\Facades\Storage;
 
 class AccountController extends Controller
 {
