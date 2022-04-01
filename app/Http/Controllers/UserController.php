@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Post_UserRequest;
-use App\Http\Requests\Patch_UserRequest;
+use App\Http\Requests\Update_UserRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\User;
@@ -152,7 +152,7 @@ class UserController extends Controller
      *      @OA\Response (response="500", description="Internal Server Error"),
      * )
      */
-    public function updateUser(Patch_UserRequest $request, $id)
+    public function updateUser(Update_UserRequest $request, $id)
     {
         try {
 
