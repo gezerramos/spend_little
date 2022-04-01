@@ -11,7 +11,7 @@ use App\Models\Meat;
 use App\Models\Status_Order;
 use App\Models\Optional;
 use App\Models\Optionals_Burger;
-
+use Illuminate\Support\Arr;
 use Illuminate\Validation\ValidationException;
 
 class HamburgerController extends Controller
@@ -136,11 +136,28 @@ class HamburgerController extends Controller
     {
 
         try {
-            $amburgers = Hamburger::all();
-            
+
+            $amburgers = Hamburger::innerjoinHamburgerMeInfo($request->userID);
+            //optionals_id,hamburger_id 
+
+            for ($i = 0; $i <= count($amburgers) - 1; $i++) {
+
+                $optionals_items = Optionals_Burger::innerjoinHamburgerOpMeInfo($amburgers[$i]->id);
+                if (count($optionals_items) > 0) {
+
+                    $optionals_price = 0;
+                    for ($o = 0; $o <= count($optionals_items) - 1; $o++) {
+                        $optionals_price =   $optionals_price + $optionals_items[$o]->price;
+                    }
+                    $amburgers[$i]->count_optionals = count($amburgers);
+                    $amburgers[$i]->optionals = $optionals_items;
+                    $amburgers[$i]->total_price = $amburgers[$i]->breads_price + $amburgers[$i]->meats_price + $optionals_price;
+                }
+            }
+
             $info = [
-                'count' => count($amburgers),
-                'content' => $amburgers,
+                'count_burger' => count($amburgers),
+                'content' =>   $amburgers,
             ];
             return response()->json(
                 $info,
