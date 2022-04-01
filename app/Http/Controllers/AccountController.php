@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Post_UserRequest;
+//use App\Http\Requests\Post_UserRequest;
 //use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\User;
