@@ -351,14 +351,14 @@
                 ]
             }
         },
-        "/carnes": {
+        "/breads": {
             "get": {
                 "tags": [
-                    "/carnes"
+                    "/breads"
                 ],
-                "summary": "Carne",
-                "description": "Rota responsavel por listar todos tipos de carnes!",
-                "operationId": "4da6aa99e989b63aa3b9ff4fb5a576f7",
+                "summary": "Bread",
+                "description": "Rota responsavel por listar todos tipos de pães!",
+                "operationId": "588b5f189447c070afb97178978b9651",
                 "responses": {
                     "200": {
                         "description": "Success"
@@ -427,14 +427,52 @@
                 ]
             }
         },
-        "/paes": {
+        "/meats": {
             "get": {
                 "tags": [
-                    "/paes"
+                    "/meats"
                 ],
-                "summary": "Pao",
-                "description": "Rota responsavel por listar todos tipos de pães!",
-                "operationId": "587798df1b0620de2e2799161cad49f7",
+                "summary": "Meat",
+                "description": "Rota responsavel por listar todas carnes!",
+                "operationId": "f29445c52c8a9655d1186fdf056a3525",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "201": {
+                        "description": "Created"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "409": {
+                        "description": "Conflict"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/optionals": {
+            "get": {
+                "tags": [
+                    "/optionals"
+                ],
+                "summary": "Optional",
+                "description": "Rota responsavel por listar todas opcionais!",
+                "operationId": "43dd0472a6f3aebb0692479d93f5d5f7",
                 "responses": {
                     "200": {
                         "description": "Success"

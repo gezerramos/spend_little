@@ -4,16 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Carne;
+use App\Models\Optional;
 
-class CarnesController extends Controller
+class OptionalController extends Controller
 {
  /**
      * @OA\Get(
-     *      path="/carnes", 
-     *      tags={"/carnes"},
-     *      summary="Carne",
-     *      description="Rota responsavel por listar todos tipos de carnes!",
+     *      path="/optionals", 
+     *      tags={"/optionals"},
+     *      summary="Optional",
+     *      description="Rota responsavel por listar todas opcionais!",
      *      security= {{"bearerAuth": {}}},
      *      @OA\Response (
      *          response="200", description="Success"),
@@ -25,15 +25,13 @@ class CarnesController extends Controller
      *      @OA\Response (response="500", description="Internal Server Error"),
      * )
      */
-    public function allCarnes(Request $request)
+    public function allOptionals(Request $request)
     {
 
         try {
-            $levels = Carne::all([
+            $levels = Optional::all([
                 'id', 
-                'name',
-                'price',
-                'status'
+                'name'
             ]);
             
             $info = [

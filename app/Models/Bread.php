@@ -5,8 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Pao extends Model
+class Bread extends Model
 {
-    protected $table = 'paes';
+    //protected $table = 'Breads';
     use HasFactory;
 }

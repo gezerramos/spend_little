@@ -6,8 +6,9 @@ use \App\Http\Controllers\AccountController;
 use \App\Http\Controllers\AuthController;
 use \App\Http\Middleware\AuthenticMD;
 use \App\Http\Controllers\LevelController;
-use \App\Http\Controllers\PaoController;
-use \App\Http\Controllers\CarnesController;
+use \App\Http\Controllers\BreadController;
+use \App\Http\Controllers\MeatsController;
+use \App\Http\Controllers\OptionalController;
 
 //auth
 Route::post('/v1/authentication', [AuthController::class, 'post_Auth'])->name('authentication.auth');
@@ -35,9 +36,11 @@ Route::middleware(AuthenticMD::class)->prefix('/v1')->group(function () {
     Route::post('/merchants', [MerchantsController::class, 'createMerchant'])->name('merchants.create');
     Route::patch('/merchants/{id}', [MerchantsController::class, 'updateMerchant'])->name('merchants.update');
 
-    Route::get('/paes', [PaoController::class, 'allPaes'])->name('paes.all');
+    Route::get('/breads', [BreadController::class, 'allBreads'])->name('breads.all');
 
-    Route::get('/carnes', [CarnesController::class, 'allCarnes'])->name('carnes.all');
+   Route::get('/meats', [MeatsController::class, 'allMeats'])->name('meats.all');
+
+    Route::get('/optionals', [OptionalController::class, 'allOptionals'])->name('optionals.all');
     
 });
 

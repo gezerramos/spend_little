@@ -4,16 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Pao;
+use App\Models\Meat;
 
-class PaoController extends Controller
+class MeatsController extends Controller
 {
  /**
      * @OA\Get(
-     *      path="/paes", 
-     *      tags={"/paes"},
-     *      summary="Pao",
-     *      description="Rota responsavel por listar todos tipos de pães!",
+     *      path="/meats", 
+     *      tags={"/meats"},
+     *      summary="Meat",
+     *      description="Rota responsavel por listar todas carnes!",
      *      security= {{"bearerAuth": {}}},
      *      @OA\Response (
      *          response="200", description="Success"),
@@ -25,15 +25,13 @@ class PaoController extends Controller
      *      @OA\Response (response="500", description="Internal Server Error"),
      * )
      */
-    public function allPaes(Request $request)
+    public function allMeats(Request $request)
     {
 
         try {
-            $levels = Pao::all([
+            $levels = Meat::all([
                 'id', 
-                'name',
-                'price',
-                'status'
+                'name'
             ]);
             
             $info = [
