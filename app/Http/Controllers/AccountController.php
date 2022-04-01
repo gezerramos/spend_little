@@ -237,13 +237,13 @@ class AccountController extends Controller
     {
         try {
 
-            $user = User::find($request->userID);
+            /* $user = User::find($request->userID);
             if (!$user) {
                 return response()->json([
                     "error:" => "true",
                     "message" => "Usuario não encontrado!",
                 ], 409);
-            }
+            } */
 
            /*  $mail = User::User_Email_Equals($request->userID, $request['email'],);
             if (count($mail) > 0) {
