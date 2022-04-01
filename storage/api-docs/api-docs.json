@@ -136,13 +136,13 @@
                     }
                 ]
             },
-            "put": {
+            "patch": {
                 "tags": [
                     "/account"
                 ],
                 "summary": "Account",
                 "description": "Rota responsavel por editar conta do usuario logado!",
-                "operationId": "9058750c00bfb65a7b4ce63cf2c901a0",
+                "operationId": "d375f0c480fcb91943e1fb98e822f11d",
                 "requestBody": {
                     "content": {
                         "application/json": {

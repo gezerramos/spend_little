@@ -3,8 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-//use Illuminate\Contracts\Validation\Validator;
-//use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class Patch_AccountRequest extends FormRequest
 {
@@ -38,15 +38,15 @@ class Patch_AccountRequest extends FormRequest
             'imagem' => 'file|mimes:jpeg,jpg,png|max:10000' // max 10000kb
         ];
     }
-    // protected function failedValidation(Validator $validator)
-    // {
-    //     throw new HttpResponseException(
-    //         response()->json([
-    //             "error:" => "true",
-    //             "message" => $validator->errors(),
-    //         ], 409)
-    //     );
-    // }
+    protected function failedValidation(Validator $validator)
+    {
+        throw new HttpResponseException(
+            response()->json([
+                "error:" => "true",
+                "message" => $validator->errors(),
+            ], 409)
+        );
+    }
     public function messages()
     {
         return [

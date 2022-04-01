@@ -175,7 +175,7 @@ class AccountController extends Controller
         //$user = User::firstWhere('email', $credenciais['email']);
     }
     /**
-     * @OA\Put(
+     * @OA\Patch(
      *      path="/account/me", 
      *      tags={"/account"},
      *      summary="Account",
@@ -259,11 +259,11 @@ class AccountController extends Controller
                     $requestEquals[$input] = $value;
                 }
             }
-            if ($request['password']) {
+     /*        if ($request['password']) {
                 $requestEquals['password'] = bcrypt($request->password);
             } 
 
-            $user->update($request);
+            $user->update($request); */
 
             return response()->json(
                 [],
