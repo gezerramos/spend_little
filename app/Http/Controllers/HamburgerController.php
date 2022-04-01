@@ -149,7 +149,7 @@ class HamburgerController extends Controller
                     for ($o = 0; $o <= count($optionals_items) - 1; $o++) {
                         $optionals_price =   $optionals_price + $optionals_items[$o]->price;
                     }
-                    $amburgers[$i]->count_optionals = count($amburgers);
+                    $amburgers[$i]->count_optionals = count($optionals_items);
                     $amburgers[$i]->optionals = $optionals_items;
                     $amburgers[$i]->total_price = $amburgers[$i]->breads_price + $amburgers[$i]->meats_price + $optionals_price;
                 }
