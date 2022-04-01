@@ -245,7 +245,7 @@ class AccountController extends Controller
                 ], 409);
             }
 
-            $mail = User::User_Email_Equals($request->userID, $request['email'],);
+           /*  $mail = User::User_Email_Equals($request->userID, $request['email'],);
             if (count($mail) > 0) {
                 return response()->json([
                     "error:" => "true",
@@ -261,11 +261,9 @@ class AccountController extends Controller
             }
             if ($request['password']) {
                 $requestEquals['password'] = bcrypt($request->password);
-            }
+            } */
 
-            dd($requestEquals['name']);
-
-            $user->update($requestEquals);
+            $user->update($request);
 
             return response()->json(
                 [],
