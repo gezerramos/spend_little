@@ -389,6 +389,85 @@
                 ]
             }
         },
+        "/hamburger": {
+            "post": {
+                "tags": [
+                    "/hamburger"
+                ],
+                "summary": "Hamburger",
+                "description": "Rota responsavel por criar hamburger!",
+                "operationId": "d5fdb5f4bcf9b59bbadef9b3a1b4df3a",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "breads_id",
+                                    "meats_id",
+                                    "users_id",
+                                    "status_orders_id"
+                                ],
+                                "properties": {
+                                    "breads_id": {
+                                        "type": "number"
+                                    },
+                                    "meats_id": {
+                                        "type": "number"
+                                    },
+                                    "users_id": {
+                                        "type": "number"
+                                    },
+                                    "status_orders_id": {
+                                        "type": "number"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "breads_id": 1,
+                                    "meats_id": 1,
+                                    "users_id": 1,
+                                    "status_orders_id": 1,
+                                    "optionals": [
+                                        1,
+                                        2,
+                                        8,
+                                        9
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "201": {
+                        "description": "Created"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "409": {
+                        "description": "Conflict"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/level": {
             "get": {
                 "tags": [

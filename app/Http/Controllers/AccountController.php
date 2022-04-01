@@ -263,6 +263,8 @@ class AccountController extends Controller
                 $requestEquals['password'] = bcrypt($request->password);
             }
 
+            dd($requestEquals['name']);
+
             $user->update($requestEquals);
 
             return response()->json(
