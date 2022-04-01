@@ -351,14 +351,14 @@
                 ]
             }
         },
-        "/ingredients": {
+        "/level": {
             "get": {
                 "tags": [
-                    "/ingredients"
+                    "/level"
                 ],
-                "summary": "Ingredients",
-                "description": "Rota responsavel por listar todos os usuarios!",
-                "operationId": "3186803f15f2825f0b248b79c0c40db7",
+                "summary": "level",
+                "description": "Rota responsavel por listar todos niveis de acesso!",
+                "operationId": "c800496a3b8690600b6a1b0fdbca0e62",
                 "responses": {
                     "200": {
                         "description": "Success"
@@ -389,14 +389,14 @@
                 ]
             }
         },
-        "/level": {
+        "/paes": {
             "get": {
                 "tags": [
-                    "/level"
+                    "/paes"
                 ],
-                "summary": "level",
-                "description": "Rota responsavel por listar todos niveis de acesso!",
-                "operationId": "c800496a3b8690600b6a1b0fdbca0e62",
+                "summary": "Pao",
+                "description": "Rota responsavel por listar todos tipos de pães!",
+                "operationId": "587798df1b0620de2e2799161cad49f7",
                 "responses": {
                     "200": {
                         "description": "Success"
