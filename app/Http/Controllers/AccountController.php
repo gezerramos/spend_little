@@ -237,7 +237,7 @@ class AccountController extends Controller
     {
         try {
 
-            /* $user = User::find($request->userID);
+            $user = User::find($request->userID);
             if (!$user) {
                 return response()->json([
                     "error:" => "true",
@@ -261,9 +261,9 @@ class AccountController extends Controller
             }
             if ($request['password']) {
                 $requestEquals['password'] = bcrypt($request->password);
-            } */
+            } 
 
-            //$user->update($request);
+            $user->update($request);
 
             return response()->json(
                 [],
