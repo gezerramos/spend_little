@@ -10,6 +10,7 @@ use \App\Http\Controllers\LevelController;
 use \App\Http\Controllers\BreadController;
 use \App\Http\Controllers\MeatsController;
 use \App\Http\Controllers\OptionalController;
+use \App\Http\Controllers\HamburgerController;
 
 //auth
 Route::post('/v1/authentication', [AuthController::class, 'post_Auth'])->name('authentication.auth');
@@ -23,30 +24,31 @@ Route::middleware(AuthenticMD::class)->prefix('/v1')->group(function () {
     Route::patch('/account/me', [UpdateAccountController::class, 'updateAccount'])->name('account.me');
     Route::post('/account/me/image', [AccountController::class, 'updateAccountImage'])->name('account.me');
     Route::get('/account/refresh', [AccountController::class, 'refreshToken'])->name('account.refresh');
-    
-    
+
+
     //admin
     Route::patch('/user/{id}', [UserController::class, 'updateUser'])->name('user.find');
     Route::get('/user', [UserController::class, 'allUsers'])->name('user.all');
     Route::get('/user/{id}', [UserController::class, 'getUser'])->name('user.find');
     Route::patch('/user/{id}', [UserController::class, 'updateUser'])->name('user.find');
-   
-    Route::get('/level', [LevelController::class, 'allLevel'])->name('level.all');
 
-    Route::get('/merchants', [MerchantsController::class, 'allMerchant'])->name('merchants.all');
-    Route::post('/merchants', [MerchantsController::class, 'createMerchant'])->name('merchants.create');
-    Route::patch('/merchants/{id}', [MerchantsController::class, 'updateMerchant'])->name('merchants.update');
+    Route::get('/level', [LevelController::class, 'allLevel'])->name('level.all');
 
     Route::get('/breads', [BreadController::class, 'allBreads'])->name('breads.all');
 
-   Route::get('/meats', [MeatsController::class, 'allMeats'])->name('meats.all');
+    Route::get('/meats', [MeatsController::class, 'allMeats'])->name('meats.all');
 
     Route::get('/optionals', [OptionalController::class, 'allOptionals'])->name('optionals.all');
+
+    Route::post('/hamburger/me', [HamburgerController::class, 'createHamburger'])->name('hamburger.create');
+    Route::get('/hamburger/me', [HamburgerController::class, 'allHamburgerUser'])->name('hamburger.allUser');
+  
+
     
 });
 
 
-Route::any('{any}', function(){
+Route::any('{any}', function () {
     return response()->json([
         'status'    => false,
         'message'   => 'Page Not Found.',

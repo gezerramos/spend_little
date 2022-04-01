@@ -6,14 +6,20 @@ use App\Http\Requests\Post_HamburgerRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Hamburger;
+use App\Models\Bread;
+use App\Models\Meat;
+use App\Models\Status_Order;
+use App\Models\Optional;
+use App\Models\Optionals_Burger;
+
 use Illuminate\Validation\ValidationException;
 
 class HamburgerController extends Controller
 {
     /**
      * @OA\Post(
-     *      path="/hamburger", 
-     *      tags={"/hamburger"},
+     *      path="/hamburger/me", 
+     *      tags={"/hamburger/me"},
      *      summary="Hamburger",
      *      security= {{"bearerAuth": {}}},
      *      description="Rota responsavel por criar hamburger!",
@@ -30,19 +36,8 @@ class HamburgerController extends Controller
      *                     property="meats_id",
      *                     type="number"
      *                 ),
-     *                 @OA\Property(
-     *                     property="users_id",
-     *                     type="number"
-     *                 ),
-     *                 @OA\Property(
-     *                     property="status_orders_id",
-     *                     type="number"
-     *                 ),
-     * 
      *                 example={"breads_id": 1,
      *                          "meats_id": 1,
-     *                          "users_id": 1,
-     *                          "status_orders_id": 1,
      *                          "optionals":{1, 2,8,9},
      *                          }
      *             )
@@ -61,23 +56,54 @@ class HamburgerController extends Controller
     {
         try {
 
-            $mailTest = Hamburger::firstWhere('name', $request['name']);
-            if ($mailTest) {
+            $BreadTest = Bread::Bread_Status($request['breads_id']);
+            if (count($BreadTest) == 0) {
                 return response()->json([
                     "error:" => "true",
-                    "message" => "o Nome já existe em nossa base de dados!",
+                    "message" => "ID: " . $request['breads_id'] . " do pão não existe!",
+                ], 409);
+            }
+            $MeatTest = Meat::Meat_Status($request['meats_id']);
+            if (count($MeatTest) == 0) {
+                return response()->json([
+                    "error:" => "true",
+                    "message" => "ID: " . $request['meats_id'] . " da carne não existe!",
                 ], 409);
             }
 
-            // $merchant = new Hamburger;
-            // $merchant->name = $request->name;
-            // $merchant->corporate_name = $request->corporate_name;
+            if ($request->optionals) {
+                foreach ($request->optionals as $input => $value) {
+                    $OptionalTest = Optional::Optionals_Status($value);
 
-            // $merchant->save();
+                    if (count($OptionalTest) == 0) {
+                        return response()->json([
+                            "error:" => "true",
+                            "message" => "ID: " . $value . " opcional não existe ou esta desativado!",
+                        ], 409);
+                    }
+                }
+            }
 
+            $hamburger = new Hamburger;
+            $hamburger->breads_id = $request['breads_id'];
+            $hamburger->meats_id = $request['meats_id'];
+            $hamburger->users_id = $request->userID;
+            $hamburger->status_orders_id = 1;
+            $hamburger->save();
+
+            $id_burger = $hamburger->id;
+
+            if ($request->optionals) {
+                foreach ($request->optionals as $input => $value) {
+                    $optionalsburger = new Optionals_Burger;
+                    $optionalsburger->optionals_id = $value;
+                    $optionalsburger->hamburger_id = $id_burger;
+                    $optionalsburger->save();
+                }
+            }
 
             return response()->json(
-                'Dados salvos com sucesso!',
+                $hamburger->id,
                 201
             );
         } catch (\Throwable  $e) {
@@ -85,7 +111,47 @@ class HamburgerController extends Controller
             return response()->json([
                 "error:" => "true",
                 "message" => $e->getMessage(),
-            ], $e->status);
+            ], 500);
+        }
+    }
+
+    /**
+     * @OA\Get(
+     *      path="/hamburger/me", 
+     *      tags={"/hamburger/me"},
+     *      summary="Hamburger",
+     *      description="Rota responsavel por listar todas hamburgers!",
+     *      security= {{"bearerAuth": {}}},
+     *      @OA\Response (
+     *          response="200", description="Success"),
+     *      @OA\Response (response="201", description="Created"),
+     *      @OA\Response (response="401", description="Unauthorized"),
+     *      @OA\Response (response="403", description="Forbidden"),
+     *      @OA\Response (response="404", description="Not Found"),
+     *      @OA\Response (response="409", description="Conflict"),
+     *      @OA\Response (response="500", description="Internal Server Error"),
+     * )
+     */
+    public function allHamburgerUser(Request $request)
+    {
+
+        try {
+            $amburgers = Hamburger::all();
+            
+            $info = [
+                'count' => count($amburgers),
+                'content' => $amburgers,
+            ];
+            return response()->json(
+                $info,
+                200
+            );
+        } catch (\Throwable  $e) {
+
+            return response()->json([
+                "error:" => "true",
+                "message" => $e->getMessage(),
+            ], 500);
         }
     }
 }

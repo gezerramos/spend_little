@@ -26,11 +26,9 @@ class Post_HamburgerRequest extends FormRequest
     public function rules()
     {
         return [
-            'users_id' => 'required | min:1 | integer',
             'breads_id' => 'required | min:1 | integer',
             'meats_id' => 'required | min:1 | integer',
-            'status_orders_id' => 'required | min:1 | integer',
-            "optionals"    => "required|array|min:1",
+            "optionals"    => "array|min:1",
         ];
     }
     protected function failedValidation(Validator $validator)

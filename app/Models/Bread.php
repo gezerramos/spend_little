@@ -9,4 +9,11 @@ class Bread extends Model
 {
     //protected $table = 'Breads';
     use HasFactory;
+    public static function Bread_Status($id)
+    {
+        $user = Bread::where('status', 1)
+            ->where('id', '=', $id)
+            ->get();
+        return $user;
+    }
 }

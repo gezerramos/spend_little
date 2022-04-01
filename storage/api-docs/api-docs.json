@@ -389,14 +389,50 @@
                 ]
             }
         },
-        "/hamburger": {
+        "/hamburger/me": {
+            "get": {
+                "tags": [
+                    "/hamburger/me"
+                ],
+                "summary": "Hamburger",
+                "description": "Rota responsavel por listar todas hamburgers!",
+                "operationId": "19ab99e28160cc3477e18639ebb442b6",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "201": {
+                        "description": "Created"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "409": {
+                        "description": "Conflict"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
             "post": {
                 "tags": [
-                    "/hamburger"
+                    "/hamburger/me"
                 ],
                 "summary": "Hamburger",
                 "description": "Rota responsavel por criar hamburger!",
-                "operationId": "d5fdb5f4bcf9b59bbadef9b3a1b4df3a",
+                "operationId": "bf22bbc1ea6952486c80e3b867d3535f",
                 "requestBody": {
                     "content": {
                         "application/json": {
@@ -413,20 +449,12 @@
                                     },
                                     "meats_id": {
                                         "type": "number"
-                                    },
-                                    "users_id": {
-                                        "type": "number"
-                                    },
-                                    "status_orders_id": {
-                                        "type": "number"
                                     }
                                 },
                                 "type": "object",
                                 "example": {
                                     "breads_id": 1,
                                     "meats_id": 1,
-                                    "users_id": 1,
-                                    "status_orders_id": 1,
                                     "optionals": [
                                         1,
                                         2,
