@@ -21,7 +21,7 @@ class AdditionalHamburgerController extends Controller
      *      path="/hamburger/{hamburger_id}/optionals", 
      *      tags={"/hamburger"},
      *      summary="Hamburger",
-     *      description="Rota responsavel recuperar usuario!",
+     *      description="Rota responsavel adicionar novos adicionais ao hamburger!",
      *      security= {{"bearerAuth": {}}},
      *      @OA\Parameter(
      *         description="Parameter example",

@@ -28,21 +28,7 @@ Route::middleware('AuthenticMD')->prefix('/v1')->group(function () {
     Route::get('/account/me', [AccountController::class, 'getInfoAccount'])->name('account.me');
     Route::patch('/account/me', [UpdateAccountController::class, 'updateAccount'])->name('account.me');
     Route::post('/account/me/image', [AccountController::class, 'updateAccountImage'])->name('account.me');
-    //Route::get('/account/refresh', [AccountController::class, 'refreshToken'])->name('account.refresh');
-
-    Route::middleware('CheckIsAdmin')->patch('/admin/user/{id}', [UserController::class, 'updateUser'])->name('user.find');
-    Route::middleware('CheckIsAdmin')->get('/admin/user', [UserController::class, 'allUsers'])->name('user.all');
-    Route::middleware('CheckIsAdmin')->get('/admin/user/{id}', [UserController::class, 'getUser'])->name('user.find');
-    Route::middleware('CheckIsAdmin')->patch('/admin/user/{id}', [UserController::class, 'updateUser'])->name('user.find');
-
-    Route::middleware('CheckIsAdmin')->get('/admin/level', [LevelController::class, 'allLevel'])->name('level.all');
-   
-    Route::middleware('CheckIsAdmin')->get('/admin/status_orders', [StatusBurgerController::class, 'allStatusOrders'])->name('statusorder.all');
-    
-    Route::middleware('CheckIsAdmin')->get('/admin/hamburger/{status}', [BurgerController::class, 'allHamburgerUser'])->name('admin.allburger');
-    Route::middleware('CheckIsAdmin')->post('/admin/hamburger/{hamburger_id}/optionals', [AdditionalHamburgerController::class, 'AdditionalHamburgerUser'])->name('admin.additionalburger');
-    Route::middleware('CheckIsAdmin')->patch('/admin/hamburger/{hamburger_id}', [CancellationHamburgerController::class, 'cancelHamburgerUser'])->name('admin.cancelburger');
-
+    Route::get('/account/refresh', [AccountController::class, 'refreshToken'])->name('account.refresh');
 
     Route::get('/breads', [BreadController::class, 'allBreads'])->name('breads.all');
 
@@ -57,7 +43,23 @@ Route::middleware('AuthenticMD')->prefix('/v1')->group(function () {
     Route::patch('/hamburger/{hamburger_id}', [CancellationHamburgerController::class, 'cancelHamburgerUser'])->name('user.cancelburger');
     
 });
+//admin
+Route::middleware(['AuthenticMD', 'CheckIsAdmin'])->prefix('/v1')->group(function () {
 
+    Route::patch('/admin/user/{id}', [UserController::class, 'updateUser'])->name('user.find');
+    Route::get('/admin/user', [UserController::class, 'allUsers'])->name('user.all');
+    Route::get('/admin/user/{id}', [UserController::class, 'getUser'])->name('user.find');
+    Route::patch('/admin/user/{id}', [UserController::class, 'updateUser'])->name('user.find');
+
+    Route::get('/admin/level', [LevelController::class, 'allLevel'])->name('level.all');
+   
+    Route::get('/admin/status_orders', [StatusBurgerController::class, 'allStatusOrders'])->name('statusorder.all');
+    
+    Route::get('/admin/hamburger/{status}', [BurgerController::class, 'allHamburgerUser'])->name('admin.allburger');
+    Route::post('/admin/hamburger/{hamburger_id}/optionals', [AdditionalHamburgerController::class, 'AdditionalHamburgerUser'])->name('admin.additionalburger');
+    Route::patch('/admin/hamburger/{hamburger_id}', [CancellationHamburgerController::class, 'cancelHamburgerUser'])->name('admin.cancelburger');
+
+});
 
 Route::any('{any}', function () {
     return response()->json([
