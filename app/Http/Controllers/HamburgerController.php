@@ -150,9 +150,10 @@ class HamburgerController extends Controller
                         $optionals_price =   $optionals_price + $optionals_items[$o]->price;
                     }
                 }
+                $total_price = $amburgers[$i]->breads_price + $amburgers[$i]->meats_price + $optionals_price;
                 $amburgers[$i]->count_optionals = count($optionals_items);
                 $amburgers[$i]->optionals = $optionals_items;
-                $amburgers[$i]->total_price = $amburgers[$i]->breads_price + $amburgers[$i]->meats_price + $optionals_price;
+                $amburgers[$i]->total_price = number_format($total_price, 2, '.', '');
             }
 
             $info = [
