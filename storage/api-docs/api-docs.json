@@ -255,7 +255,7 @@
         "/hamburger/{hamburger_id}/optionals": {
             "post": {
                 "tags": [
-                    "/hamburger/me"
+                    "/hamburger"
                 ],
                 "summary": "Hamburger",
                 "description": "Rota responsavel recuperar usuario!",
@@ -463,10 +463,56 @@
                 ]
             }
         },
+        "/admin/hamburger/{status}": {
+            "get": {
+                "tags": [
+                    "/admin/hamburger"
+                ],
+                "summary": "Hamburger : admin",
+                "description": "Rota responsavel por listar todas hamburgers!",
+                "operationId": "70313ef2f64dd99c156a76fe03a71a52",
+                "parameters": [
+                    {
+                        "name": "status",
+                        "in": "path",
+                        "description": "Parameter example",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "201": {
+                        "description": "Created"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "409": {
+                        "description": "Conflict"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/hamburger/{hamburger_id}": {
             "patch": {
                 "tags": [
-                    "/hamburger/me"
+                    "/hamburger"
                 ],
                 "summary": "Hamburger",
                 "description": "Rota responsavel cancelar pedido!!",
@@ -512,7 +558,7 @@
         "/hamburger/{hamburger_id}/optionals/{optionals_id}": {
             "delete": {
                 "tags": [
-                    "/hamburger/me"
+                    "/hamburger"
                 ],
                 "summary": "Hamburger",
                 "description": "Rota responsavel remover itens adicionais!",
@@ -564,7 +610,7 @@
         "/hamburger": {
             "get": {
                 "tags": [
-                    "/hamburger/me"
+                    "/hamburger"
                 ],
                 "summary": "Hamburger",
                 "description": "Rota responsavel por listar todas hamburgers!",
@@ -600,7 +646,7 @@
             },
             "post": {
                 "tags": [
-                    "/hamburger/me"
+                    "/hamburger"
                 ],
                 "summary": "Hamburger",
                 "description": "Rota responsavel por criar hamburger!",
@@ -668,14 +714,14 @@
                 ]
             }
         },
-        "/level": {
+        "/admin/level": {
             "get": {
                 "tags": [
-                    "/level"
+                    "/admin/level"
                 ],
                 "summary": "level : admin",
                 "description": "Rota responsavel por listar todos niveis de acesso!",
-                "operationId": "c800496a3b8690600b6a1b0fdbca0e62",
+                "operationId": "0474a5076626f106f0ddfabfb3809c22",
                 "responses": {
                     "200": {
                         "description": "Success"
@@ -782,14 +828,14 @@
                 ]
             }
         },
-        "/user": {
+        "/admin/status_orders": {
             "get": {
                 "tags": [
-                    "/user"
+                    "/admin/status_orders"
                 ],
-                "summary": "User : admin",
-                "description": "Rota responsavel por listar todos os usuarios!",
-                "operationId": "29fe6261905366f57d192d4f07905f87",
+                "summary": "status_orders",
+                "description": "Rota responsavel por listar todos niveis de acesso!",
+                "operationId": "9d4a576c808aba6db1dd03d9bf48def9",
                 "responses": {
                     "200": {
                         "description": "Success"
@@ -820,14 +866,52 @@
                 ]
             }
         },
-        "/user/{id}": {
+        "/admin/user": {
             "get": {
                 "tags": [
-                    "/user"
+                    "/admin/user"
+                ],
+                "summary": "User : admin",
+                "description": "Rota responsavel por listar todos os usuarios!",
+                "operationId": "32beb4fa80e1312644d0f48c8b45b6be",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "201": {
+                        "description": "Created"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "409": {
+                        "description": "Conflict"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/admin/user/{id}": {
+            "get": {
+                "tags": [
+                    "/admin/user"
                 ],
                 "summary": "User : admin",
                 "description": "Rota responsavel recuperar usuario!",
-                "operationId": "4826814dc6639c07a116bb14cc3fced1",
+                "operationId": "57fbe79417d5e7327e87a806839f2fef",
                 "parameters": [
                     {
                         "name": "id",
@@ -867,11 +951,11 @@
             },
             "patch": {
                 "tags": [
-                    "/user"
+                    "/admin/user"
                 ],
                 "summary": "User : admin",
                 "description": "Rota responsavel por editar usuario!",
-                "operationId": "418e2b1abf275dae06ef49c5efdbbe98",
+                "operationId": "2ec45ba377e0834024044f129a051b3f",
                 "parameters": [
                     {
                         "name": "id",

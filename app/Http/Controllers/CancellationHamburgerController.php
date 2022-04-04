@@ -19,7 +19,7 @@ class CancellationHamburgerController extends Controller
     /**
      * @OA\Patch(
      *      path="/hamburger/{hamburger_id}", 
-     *      tags={"/hamburger/me"},
+     *      tags={"/hamburger"},
      *      summary="Hamburger",
      *      description="Rota responsavel cancelar pedido!!",
      *      security= {{"bearerAuth": {}}},

@@ -42,5 +42,31 @@ class Hamburger extends Model
     return $user;
   }
 
+  public static function innerjoinHamburgerInfo($status)
+  {
+    $user = Hamburger::where('hamburger.status_orders_id', $status)
+      ->join('breads', 'hamburger.breads_id', '=', 'breads.id')
+      ->join('meats', 'hamburger.meats_id', '=', 'meats.id')
+      ->join('users', 'users.id', '=', 'hamburger.users_id')
+      ->join('status_orders', 'hamburger.status_orders_id', '=', 'status_orders.id')
+      ->select(
+        'hamburger.id',
+        'hamburger.users_id',
+        'users.name',
+        'hamburger.breads_id',
+        'breads.name as breads',
+        'breads.price as breads_price',
+        'hamburger.meats_id',
+        'meats.name as meats',
+        'meats.price as meats_price',
+        'hamburger.status_orders_id',
+        'status_orders.name as status_orders',
+        'hamburger.created_at',
+        'hamburger.updated_at',
+      )
+      ->get();
+    return $user;
+  }
+
  
 }

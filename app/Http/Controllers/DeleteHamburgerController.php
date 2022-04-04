@@ -19,7 +19,7 @@ class DeleteHamburgerController extends Controller
     /**
      * @OA\Delete(
      *      path="/hamburger/{hamburger_id}/optionals/{optionals_id}", 
-     *      tags={"/hamburger/me"},
+     *      tags={"/hamburger"},
      *      summary="Hamburger",
      *      description="Rota responsavel remover itens adicionais!",
      *      security= {{"bearerAuth": {}}},

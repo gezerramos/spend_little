@@ -4,15 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Level;
+use App\Models\Status_Order;
 
-class LevelController extends Controller
+class StatusBurgerController extends Controller
 {
  /**
      * @OA\Get(
-     *      path="/admin/level", 
-     *      tags={"/admin/level"},
-     *      summary="level : admin",
+     *      path="/admin/status_orders", 
+     *      tags={"/admin/status_orders"},
+     *      summary="status_orders",
      *      description="Rota responsavel por listar todos niveis de acesso!",
      *      security= {{"bearerAuth": {}}},
      *      @OA\Response (
@@ -25,18 +25,18 @@ class LevelController extends Controller
      *      @OA\Response (response="500", description="Internal Server Error"),
      * )
      */
-    public function allLevel(Request $request)
+    public function allStatusOrders(Request $request)
     {
 
         try {
-            $levels = Level::all([
+            $statusOrders = Status_Order::all([
                 'id', 
                 'name'
             ]);
             
             $info = [
-                'count' => count($levels),
-                'content' => $levels,
+                'count' => count($statusOrders),
+                'content' => $statusOrders,
             ];
             return response()->json(
                 $info,

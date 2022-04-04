@@ -29,4 +29,5 @@ class Optionals_Burger extends Model
         ->get();
       return $user;
     }
+    
 }
