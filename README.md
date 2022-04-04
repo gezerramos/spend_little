@@ -3,12 +3,7 @@ REST API
 
 Endpoint | Description
 --- | ---
-`POST /api/authentication` | auth user
-`GET /api/v1/user` | will return the list of all users
-`POST /api/v1/user` | create new user
-`PATCH /api/v1/user/{id}` | update user
-`GET /api/v1/level` | will return the list of all level
-`GET /account/me`| retrieve logged user information
+`/api/docs` | Documentation
 
 #Problem swagger
 
