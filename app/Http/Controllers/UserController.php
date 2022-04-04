@@ -15,7 +15,7 @@ class UserController extends Controller
      * @OA\Get(
      *      path="/user", 
      *      tags={"/user"},
-     *      summary="User",
+     *      summary="User : admin",
      *      description="Rota responsavel por listar todos os usuarios!",
      *      security= {{"bearerAuth": {}}},
      *      @OA\Response (
@@ -62,7 +62,7 @@ class UserController extends Controller
      * @OA\Get(
      *      path="/user/{id}", 
      *      tags={"/user"},
-     *      summary="User",
+     *      summary="User : admin",
      *      description="Rota responsavel recuperar usuario!",
      *      security= {{"bearerAuth": {}}},
      *      @OA\Parameter(
@@ -111,7 +111,7 @@ class UserController extends Controller
      * @OA\Patch(
      *      path="/user/{id}", 
      *      tags={"/user"},
-     *      summary="User",
+     *      summary="User : admin",
      *      description="Rota responsavel por editar usuario!",
      *      security= {{"bearerAuth": {}}},
      *      @OA\Parameter(

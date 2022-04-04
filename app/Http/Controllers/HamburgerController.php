@@ -18,7 +18,7 @@ class HamburgerController extends Controller
 {
     /**
      * @OA\Post(
-     *      path="/hamburger/me", 
+     *      path="/hamburger", 
      *      tags={"/hamburger/me"},
      *      summary="Hamburger",
      *      security= {{"bearerAuth": {}}},
@@ -117,7 +117,7 @@ class HamburgerController extends Controller
 
     /**
      * @OA\Get(
-     *      path="/hamburger/me", 
+     *      path="/hamburger", 
      *      tags={"/hamburger/me"},
      *      summary="Hamburger",
      *      description="Rota responsavel por listar todas hamburgers!",

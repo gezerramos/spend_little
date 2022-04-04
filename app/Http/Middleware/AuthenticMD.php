@@ -16,16 +16,18 @@ class AuthenticMD extends Authenticate
      * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
-    /* public function handle(Request $request, Closure $next)
+ /*    public function handleTeste($request, $teste, Closure $next)
     {
         //return Response($request->header('Authorization'));
-        $request->teste= 'teste';
-        return $next($request);
+        return response()->json([
+            "error:" => "true",
+            "message" => 'testett',
+        ], 401);
     } */
     public function handle($request, Closure $next)
     {
         try {
-            //dd($request->path());
+
             $this->authenticate($request);
 
             $token = JWTAuth::getToken();

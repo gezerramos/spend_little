@@ -12,7 +12,7 @@ class LevelController extends Controller
      * @OA\Get(
      *      path="/level", 
      *      tags={"/level"},
-     *      summary="level",
+     *      summary="level : admin",
      *      description="Rota responsavel por listar todos niveis de acesso!",
      *      security= {{"bearerAuth": {}}},
      *      @OA\Response (

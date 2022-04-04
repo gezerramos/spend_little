@@ -18,9 +18,9 @@ class AdditionalHamburgerController extends Controller
 {
     /**
      * @OA\Post(
-     *      path="/hamburger/{hamburger_id}/optionals/me", 
+     *      path="/hamburger/{hamburger_id}/optionals", 
      *      tags={"/hamburger/me"},
-     *      summary="Damburger",
+     *      summary="Hamburger",
      *      description="Rota responsavel recuperar usuario!",
      *      security= {{"bearerAuth": {}}},
      *      @OA\Parameter(
