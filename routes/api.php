@@ -12,6 +12,7 @@ use \App\Http\Controllers\MeatsController;
 use \App\Http\Controllers\OptionalController;
 use \App\Http\Controllers\HamburgerController;
 use \App\Http\Controllers\DeleteHamburgerController;
+use \App\Http\Controllers\AdditionalHamburgerController;
 
 //auth
 Route::post('/v1/authentication', [AuthController::class, 'post_Auth'])->name('authentication.auth');
@@ -43,8 +44,10 @@ Route::middleware(AuthenticMD::class)->prefix('/v1')->group(function () {
 
     Route::post('/hamburger/me', [HamburgerController::class, 'createHamburger'])->name('hamburger.create');
     Route::get('/hamburger/me', [HamburgerController::class, 'allHamburgerUser'])->name('hamburger.allUser');
-    Route::delete('/hamburger/{hamburger_id}/optionals/{optionals_id}/me', [DeleteHamburgerController::class, 'destroyHamburgerUser'])->name('user.find');
-
+    Route::post('/hamburger/{hamburger_id}/optionals/me', [AdditionalHamburgerController::class, 'AdditionalHamburgerUser'])->name('user.additional');
+    Route::delete('/hamburger/{hamburger_id}/optionals/{optionals_id}/me', [DeleteHamburgerController::class, 'destroyHamburgerUser'])->name('user.destroy');
+    
+   
     
 });
 

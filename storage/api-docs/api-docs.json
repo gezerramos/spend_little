@@ -252,6 +252,80 @@
                 ]
             }
         },
+        "/hamburger/{hamburger_id}/optionals/me": {
+            "post": {
+                "tags": [
+                    "/hamburger/me"
+                ],
+                "summary": "Damburger",
+                "description": "Rota responsavel recuperar usuario!",
+                "operationId": "09a8dfffce55d642bbe1d218caa9b613",
+                "parameters": [
+                    {
+                        "name": "hamburger_id",
+                        "in": "path",
+                        "description": "Parameter example",
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "breads_id",
+                                    "meats_id",
+                                    "users_id",
+                                    "status_orders_id"
+                                ],
+                                "properties": {
+                                    "optionals": {
+                                        "type": "number"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "optionals": [
+                                        1,
+                                        2,
+                                        8,
+                                        9
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "201": {
+                        "description": "Created"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "409": {
+                        "description": "Conflict"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/authentication": {
             "post": {
                 "tags": [
@@ -823,8 +897,5 @@
                 "scheme": "bearer"
             }
         }
-    },
-    "security": [
-        []
-    ]
+    }
 }
