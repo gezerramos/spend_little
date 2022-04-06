@@ -16,6 +16,7 @@ use \App\Http\Controllers\AdditionalHamburgerController;
 use \App\Http\Controllers\CancellationHamburgerController;
 use \App\Http\Controllers\StatusBurgerController;
 use \App\Http\Controllers\BurgerController;
+use \App\Http\Controllers\UpdateStatusHamburgerController;
 
 //auth
 Route::post('/v1/authentication', [AuthController::class, 'post_Auth'])->name('authentication.auth');
@@ -56,8 +57,8 @@ Route::middleware(['AuthenticMD', 'CheckIsAdmin'])->prefix('/v1')->group(functio
     Route::get('/admin/status_orders', [StatusBurgerController::class, 'allStatusOrders'])->name('statusorder.all');
     
     Route::get('/admin/hamburger/{status}', [BurgerController::class, 'allHamburgerUser'])->name('admin.allburger');
-    Route::post('/admin/hamburger/{hamburger_id}/optionals', [AdditionalHamburgerController::class, 'AdditionalHamburgerUser'])->name('admin.additionalburger');
-    Route::patch('/admin/hamburger/{hamburger_id}', [CancellationHamburgerController::class, 'cancelHamburgerUser'])->name('admin.cancelburger');
+    //Route::post('/admin/hamburger/{hamburger_id}/optionals', [AdditionalHamburgerController::class, 'AdditionalHamburgerUser'])->name('admin.additionalburger');
+    Route::patch('/admin/hamburger/{hamburger_id}/user/{user_id}/status/{status_id}', [UpdateStatusHamburgerController::class, 'updateStatusHamburgerAdmin'])->name('admin.updateBurgerStatus');
 
 });
 

@@ -258,7 +258,7 @@
                     "/hamburger"
                 ],
                 "summary": "Hamburger",
-                "description": "Rota responsavel recuperar usuario!",
+                "description": "Rota responsavel adicionar novos adicionais ao hamburger!",
                 "operationId": "e753b1c719f7d0e36f3e954a6aed737e",
                 "parameters": [
                     {
@@ -836,6 +836,64 @@
                 "summary": "status_orders",
                 "description": "Rota responsavel por listar todos niveis de acesso!",
                 "operationId": "9d4a576c808aba6db1dd03d9bf48def9",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "201": {
+                        "description": "Created"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "409": {
+                        "description": "Conflict"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/admin/hamburger/{hamburger_id}/user/{user_id}/status/{status_id}": {
+            "patch": {
+                "tags": [
+                    "/admin/hamburger"
+                ],
+                "summary": "Hamburger : Admin",
+                "description": "Rota responsavel cancelar pedido do cliente!",
+                "operationId": "82107c7161d5fa219897da4b1a9fd65c",
+                "parameters": [
+                    {
+                        "name": "hamburger_id",
+                        "in": "path",
+                        "description": "Parameter example 0",
+                        "required": true
+                    },
+                    {
+                        "name": "user_id",
+                        "in": "path",
+                        "description": "Parameter example 0",
+                        "required": true
+                    },
+                    {
+                        "name": "status_id",
+                        "in": "path",
+                        "description": "Parameter example 0",
+                        "required": true
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Success"
