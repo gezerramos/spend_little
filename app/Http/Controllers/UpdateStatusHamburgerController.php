@@ -66,7 +66,8 @@ class UpdateStatusHamburgerController extends Controller
             is_numeric($status_id) ?: error('status_id');
             is_numeric($user_id) ?: error('user_id');
 
-            count(Status_Order::where('id', '=', $status_id)->get()) > 0 ?: error('status_id');
+            count(Status_Order::where('id', '=', $status_id)->get()) > 0 ?: 
+            error('status_id');
 
             $StatusBurger = Hamburger::where('users_id', '=',  $user_id)
                 ->where('id', '=', $hamburger_id);
@@ -80,7 +81,6 @@ class UpdateStatusHamburgerController extends Controller
                     409
                 );
             }
-
 
             $cancelBurger = $StatusBurger->update(array(
                 'status_orders_id' => $status_id

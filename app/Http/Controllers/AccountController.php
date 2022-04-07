@@ -73,13 +73,16 @@ class AccountController extends Controller
     public function createUser(Post_UserRequest $request)
     {
         try {
-            $mailTest = User::firstWhere('email', $request['email']);
-            if ($mailTest) {
+            /*$mailTest = User::firstWhere('email', $request['email']);
+             if ($mailTest) {
                 return response()->json([
                     "error:" => "true",
                     "message" => "Email já existe em nossa base de dados!",
                 ], 409);
-            }
+            } */
+          /*   $this->validate($request, array(
+                'email' => 'required|email|max:255|unique:users',
+            )); */
 
             $user = new User;
             $user->name = $request->name;

@@ -17,3 +17,8 @@ and add in `AppServiceProvider.php`
         }
     }
  ```
+
+ change language en to pt-br ++
+ https://github.com/lucascudo/laravel-pt-BR-localization
+
+

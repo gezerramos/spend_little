@@ -27,7 +27,7 @@ class Post_UserRequest extends FormRequest
     {
         return [
             'name' => 'required|min:6|max:100 | string',
-            'email' => 'required|min:6|max:80|email:rfc,dns',
+            'email' => 'required | string |min:6|max:80|email:rfc,dns| unique:users',
             'password' => 'required|min:4|max:40 | string',
             'address' => 'required|min:4|max:80 | string',
             'number' => 'required|min:4|max:40 | integer',
@@ -35,6 +35,7 @@ class Post_UserRequest extends FormRequest
             'complement' => 'min:4|max:30 | string',
         ];
     }
+    
     protected function failedValidation(Validator $validator)
     {
         throw new HttpResponseException(
@@ -54,6 +55,7 @@ class Post_UserRequest extends FormRequest
             'email.max' => 'O e-mail não deve ter mais de 10 caracteres.',
             'email.min' => 'O e-mail deve ter pelo menos 6 caracteres.',
             'email.email' => 'O e-mail deve ser um endereço de e-mail válido.',
+            'email.unique' => 'O e-mail deve ser unico.',
             'name.required' => 'O name é obrigatório!',
             'name.max' => 'O name não deve ter mais de 10 caracteres.',
             'name.min' => 'O name deve ter pelo menos 6 caracteres.',
