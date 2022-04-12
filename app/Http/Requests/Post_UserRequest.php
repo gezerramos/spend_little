@@ -31,7 +31,7 @@ class Post_UserRequest extends FormRequest
             'password' => 'required|min:4|max:40 | string',
             'address' => 'required|min:4|max:80 | string',
             'number' => 'required|min:4|max:40 | integer',
-            'phone' => 'required|min:4|max:20 | string',
+            'phone' => 'required|min:4|max:20 | string |celular_com_codigo',
             'complement' => 'min:4|max:30 | string',
         ];
     }
