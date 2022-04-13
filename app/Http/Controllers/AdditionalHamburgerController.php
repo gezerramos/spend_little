@@ -2,17 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Post_HamburgerRequest;
+
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Hamburger;
-use App\Models\Bread;
-use App\Models\Meat;
 use App\Models\Status_Order;
 use App\Models\Optional;
 use App\Models\Optionals_Burger;
-use Illuminate\Support\Arr;
-use Illuminate\Validation\ValidationException;
 
 class AdditionalHamburgerController extends Controller
 {
@@ -54,72 +50,67 @@ class AdditionalHamburgerController extends Controller
      *      @OA\Response (response="500", description="Internal Server Error"),
      * )
      */
-    public function AdditionalHamburgerUser(Request $request, $hamburger_id)
+    public function AdditionalHamburgerUser(Request $request, $hamburgerid)
     {
-        try {
-            function error($value)
-            {
-                throw new \ErrorException($value . ' inválido!');
-            }
-            is_numeric($hamburger_id) ?: error('hamburger_id');
-
-            $StatusBurger = Hamburger::where('users_id', '=', $request->userID)
-                ->where('id', '=', $hamburger_id)->get();
 
 
-            if (count($StatusBurger) < 1) {
-                return response()->json(
-                    [
-                        "error:" => "true",
-                        "message" => "Hamburger inválido!",
-                    ],
-                    409
-                );
-            }
+        $request["hamburgerid"] = $hamburgerid;
+        $arrValidate = array(
+            "optionals"    => "array|min:1 ",
+            "hamburgerid" => 'required | min:1 | integer',
+        );
+        $this->validate($request, $arrValidate);
 
-            if ($StatusBurger[0]->status_orders_id > 1) {
+        $StatusBurger = Hamburger::where('users_id', '=', $request->userID)
+            ->where('id', '=', $hamburgerid)->get();
 
-                $statusBurgerName = Status_Order::find($StatusBurger[0]
-                    ->status_orders_id)->name;
 
-                return response()->json(
-                    [
-                        "error:" => "true",
-                        "message" => "Hamburger não pode ser alterado! Status: $statusBurgerName.",
-                    ],
-                    409
-                );
-            }
-
-            if ($request->optionals) {
-                foreach ($request->optionals as $input => $value) {
-                    $OptionalTest = Optional::Optionals_Status($value);
-
-                    if (count($OptionalTest) == 0) {
-                        return response()->json([
-                            "error:" => "true",
-                            "message" => "ID: " . $value . " opcional não existe ou esta desativado!",
-                        ], 409);
-                    }
-                }
-            }
-
-            if ($request->optionals) {
-                foreach ($request->optionals as $input => $value) {
-                    $optionalsburger = new Optionals_Burger;
-                    $optionalsburger->optionals_id = $value;
-                    $optionalsburger->hamburger_id = $hamburger_id;
-                    $optionalsburger->save();
-                }
-            }
-
-            return response()->json([], 201);
-        } catch (\Throwable  $e) {
-
-            return response()->json([
-                "error:" => "true",
-                "message" => $e->getMessage(),
-            ], 500);
+        if (count($StatusBurger) < 1) {
+            return response()->json(
+                [
+                    "error:" => "true",
+                    "message" => "Hamburger inválido!",
+                ],
+                409
+            );
         }
+
+        if ($StatusBurger[0]->status_orders_id > 1) {
+
+            $statusBurgerName = Status_Order::find($StatusBurger[0]
+                ->status_orders_id)->name;
+
+            return response()->json(
+                [
+                    "error:" => "true",
+                    "message" => "Hamburger não pode ser alterado! Status: $statusBurgerName.",
+                ],
+                409
+            );
+        }
+
+        if ($request->optionals) {
+            foreach ($request->optionals as $input => $value) {
+                $OptionalTest = Optional::Optionals_Status($value);
+
+                if (count($OptionalTest) == 0) {
+                    return response()->json([
+                        "error:" => "true",
+                        "message" => "ID: " . $value . " opcional não existe ou esta desativado!",
+                    ], 409);
+                }
+            }
+        }
+
+        if ($request->optionals) {
+            foreach ($request->optionals as $input => $value) {
+                $optionalsburger = new Optionals_Burger;
+                $optionalsburger->optionals_id = $value;
+                $optionalsburger->hamburgerid = $hamburgerid;
+                $optionalsburger->save();
+            }
+        }
+
+        return response()->json([], 201);
     }
 }

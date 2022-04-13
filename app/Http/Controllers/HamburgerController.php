@@ -2,17 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Post_HamburgerRequest;
+
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Hamburger;
 use App\Models\Bread;
 use App\Models\Meat;
-use App\Models\Status_Order;
 use App\Models\Optional;
 use App\Models\Optionals_Burger;
-use Illuminate\Support\Arr;
-use Illuminate\Validation\ValidationException;
 
 class HamburgerController extends Controller
 {
@@ -52,67 +49,65 @@ class HamburgerController extends Controller
      *      @OA\Response (response="500", description="Internal Server Error"),
      * )
      */
-    public function createHamburger(Post_HamburgerRequest $request)
+    public function createHamburger(Request $request)
     {
-        try {
+        $arrValidate = array(
+            'breads_id' => 'required | min:1 | integer',
+            'meats_id' => 'required | min:1 | integer',
+            "optionals"    => "array|min:1",
+        );
+        $this->validate($request, $arrValidate);
 
-            $BreadTest = Bread::Bread_Status($request['breads_id']);
-            if (count($BreadTest) == 0) {
-                return response()->json([
-                    "error:" => "true",
-                    "message" => "ID: " . $request['breads_id'] . " do pão não existe!",
-                ], 409);
-            }
-            $MeatTest = Meat::Meat_Status($request['meats_id']);
-            if (count($MeatTest) == 0) {
-                return response()->json([
-                    "error:" => "true",
-                    "message" => "ID: " . $request['meats_id'] . " da carne não existe!",
-                ], 409);
-            }
-
-            if ($request->optionals) {
-                foreach ($request->optionals as $input => $value) {
-                    $OptionalTest = Optional::Optionals_Status($value);
-
-                    if (count($OptionalTest) == 0) {
-                        return response()->json([
-                            "error:" => "true",
-                            "message" => "ID: " . $value . " opcional não existe ou esta desativado!",
-                        ], 409);
-                    }
-                }
-            }
-
-            $hamburger = new Hamburger;
-            $hamburger->breads_id = $request['breads_id'];
-            $hamburger->meats_id = $request['meats_id'];
-            $hamburger->users_id = $request->userID;
-            $hamburger->status_orders_id = 1;
-            $hamburger->save();
-
-            $id_burger = $hamburger->id;
-
-            if ($request->optionals) {
-                foreach ($request->optionals as $input => $value) {
-                    $optionalsburger = new Optionals_Burger;
-                    $optionalsburger->optionals_id = $value;
-                    $optionalsburger->hamburger_id = $id_burger;
-                    $optionalsburger->save();
-                }
-            }
-
-            return response()->json(
-                $hamburger->id,
-                201
-            );
-        } catch (\Throwable  $e) {
-
+        $BreadTest = Bread::Bread_Status($request['breads_id']);
+        if (count($BreadTest) == 0) {
             return response()->json([
                 "error:" => "true",
-                "message" => $e->getMessage(),
-            ], 500);
+                "message" => "ID: " . $request['breads_id'] . " do pão não existe!",
+            ], 409);
         }
+        $MeatTest = Meat::Meat_Status($request['meats_id']);
+        if (count($MeatTest) == 0) {
+            return response()->json([
+                "error:" => "true",
+                "message" => "ID: " . $request['meats_id'] . " da carne não existe!",
+            ], 409);
+        }
+
+        if ($request->optionals) {
+            foreach ($request->optionals as $input => $value) {
+                $OptionalTest = Optional::Optionals_Status($value);
+
+                if (count($OptionalTest) == 0) {
+                    return response()->json([
+                        "error:" => "true",
+                        "message" => "ID: " . $value . " opcional não existe ou esta desativado!",
+                    ], 409);
+                }
+            }
+        }
+
+        $hamburger = new Hamburger;
+        $hamburger->breads_id = $request['breads_id'];
+        $hamburger->meats_id = $request['meats_id'];
+        $hamburger->users_id = $request->userID;
+        $hamburger->status_orders_id = 1;
+        $hamburger->save();
+
+        $id_burger = $hamburger->id;
+
+        if ($request->optionals) {
+            foreach ($request->optionals as $input => $value) {
+                $optionalsburger = new Optionals_Burger;
+                $optionalsburger->optionals_id = $value;
+                $optionalsburger->hamburger_id = $id_burger;
+                $optionalsburger->save();
+            }
+        }
+
+        return response()->json(
+            $hamburger->id,
+            201
+        );
     }
 
     /**
@@ -145,7 +140,7 @@ class HamburgerController extends Controller
                 $optionals_items = Optionals_Burger::innerjoinHamburgerOpMeInfo($amburgers[$i]->id);
                 $optionals_price = 0;
                 if (count($optionals_items) > 0) {
-                    
+
                     for ($o = 0; $o <= count($optionals_items) - 1; $o++) {
                         $optionals_price =   $optionals_price + $optionals_items[$o]->price;
                     }

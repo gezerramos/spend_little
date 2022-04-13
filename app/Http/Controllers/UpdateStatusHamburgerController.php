@@ -2,17 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Post_HamburgerRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Hamburger;
-use App\Models\Bread;
-use App\Models\Meat;
-use App\Models\Status_Order;
-use App\Models\Optional;
-use App\Models\Optionals_Burger;
-use Illuminate\Support\Arr;
-use Illuminate\Validation\ValidationException;
 
 class UpdateStatusHamburgerController extends Controller
 {
@@ -55,54 +47,34 @@ class UpdateStatusHamburgerController extends Controller
      */
     public function updateStatusHamburgerAdmin(Request $request, $hamburger_id, $user_id, $status_id)
     {
-        try {
 
-            function error($value)
-            {
-                throw new \ErrorException($value . ' inválido!');
-            }
+        $request['hamburger_id'] = $hamburger_id;
+        $request['user_id'] = $user_id;
+        $request['status_id'] = $status_id;
 
-            is_numeric($hamburger_id) ?: error('hamburger_id');
-            is_numeric($status_id) ?: error('status_id');
-            is_numeric($user_id) ?: error('user_id');
+        $this->validate($request, array(
+            'hamburger_id' => 'required| min:0 | integer |exists:hamburger,id,users_id,'.$user_id,
+            'status_id' => 'required | min:0 | integer|exists:status_orders,id',
+            'user_id' => 'required | min:0 | integer|exists:users,id',
+        ));
 
-            count(Status_Order::where('id', '=', $status_id)->get()) > 0 ?: 
-            error('status_id');
+ 
+        $StatusBurger = Hamburger::where('id', '=', $hamburger_id);
 
-            $StatusBurger = Hamburger::where('users_id', '=',  $user_id)
-                ->where('id', '=', $hamburger_id);
+        $cancelBurger = $StatusBurger->update(array(
+            'status_orders_id' => $status_id
+        ));
 
-            if (count($StatusBurger->get()) < 1) {
-                return response()->json(
-                    [
-                        "error:" => "true",
-                        "message" => "Hamburger não existe!",
-                    ],
-                    409
-                );
-            }
-
-            $cancelBurger = $StatusBurger->update(array(
-                'status_orders_id' => $status_id
-            ));
-
-            if ($cancelBurger == 1) {
-                return response()->json([], 200);
-            }
-
-            return response()->json(
-                [
-                    "error:" => "true",
-                    "message" => "Erro ao deletar opcional!",
-                ],
-                409
-            );
-        } catch (\Throwable  $e) {
-
-            return response()->json([
-                "error:" => "true",
-                "message" => $e->getMessage(),
-            ], 500);
+        if ($cancelBurger == 1) {
+            return response()->json([], 200);
         }
+
+        return response()->json(
+            [
+                "error:" => "true",
+                "message" => "Erro ao deletar opcional!",
+            ],
+            409
+        );
     }
 }

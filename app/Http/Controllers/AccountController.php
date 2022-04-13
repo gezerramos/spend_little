@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Post_UserRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\User;
@@ -70,19 +69,20 @@ class AccountController extends Controller
      *      @OA\Response (response="500", description="Internal Server Error"),
      * )
      */
-    public function createUser(Post_UserRequest $request)
+    public function createUser(Request $request)
     {
-        try {
-            /*$mailTest = User::firstWhere('email', $request['email']);
-             if ($mailTest) {
-                return response()->json([
-                    "error:" => "true",
-                    "message" => "Email já existe em nossa base de dados!",
-                ], 409);
-            } */
-          /*   $this->validate($request, array(
-                'email' => 'required|email|max:255|unique:users',
-            )); */
+       
+
+           $this->validate($request, array(
+            'name' => 'required|min:6|max:100 | string',
+            'email' => 'required | string |min:6|max:80|email:rfc,dns| unique:users',
+            'password' => 'required|min:4|max:40 | string',
+            'address' => 'required|min:4|max:80 | string',
+            'number' => 'required|min:4|max:40 | integer',
+            'phone' => 'required|min:4|max:20 | string | celular_com_codigo',
+            'complement' => 'min:4|max:30 | string',
+            )); 
+            
 
             $user = new User;
             $user->name = $request->name;
@@ -100,13 +100,7 @@ class AccountController extends Controller
                 'Usuário criado com sucesso!',
                 201
             );
-        } catch (\Throwable  $e) {
 
-            return response()->json([
-                "error:" => "true",
-                "message" => $e->getMessage(),
-            ], $e->status);
-        }
     }
     /**
      * @OA\Get(

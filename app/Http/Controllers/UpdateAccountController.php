@@ -2,19 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Post_UserRequest;
+
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use \Tymon\JWTAuth\Facades\JWTAuth;
-use App\Http\Requests\Update_AccountRequest;
-use Illuminate\Support\Facades\Storage;
 
 
 class UpdateAccountController extends Controller
 {
 
-   /**
+    /**
      * @OA\Patch(
      *      path="/account/me", 
      *      tags={"/account"},
@@ -73,48 +70,56 @@ class UpdateAccountController extends Controller
      *      @OA\Response (response="500", description="Internal Server Error"),
      * )
      */
-    public function updateAccount(Update_AccountRequest $request)
+    public function updateAccount(Request $request)
     {
-        try {
 
-            $user = User::find($request->userID);
-            if (!$user) {
-                return response()->json([
-                    "error:" => "true",
-                    "message" => "Usuario não encontrado!",
-                ], 409);
-            }
+        $arrValidate = array(
+            'name' => 'min:6|max:100 | string',
+            'email' => 'min:6|max:80|email:rfc,dns',
+            'level_id' => 'min:1 | integer',
+            'status' => 'min:0 | max:1 | integer',
+            'password' => 'min:4|max:40 | string',
+            'address' => 'min:4|max:80 | string',
+            'number' => 'min:4|max:40 | integer',
+            'phone' => 'min:4|max:20 | string',
+            'complement' => 'min:4|max:30 | string',
+            'imagem' => 'file|mimes:jpeg,jpg,png|max:10000', // max 10000kb
+        );
+        $this->validate($request, $arrValidate);
 
-            $mail = User::User_Email_Equals($request->userID, $request['email'],);
-            if (count($mail) > 0) {
-                return response()->json([
-                    "error:" => "true",
-                    "message" => "Email já existe em nossa base de dados!",
-                ], 409);
-            }
-            //validando apenas o que esta na regra
-            $requestEquals = array();
-            foreach ($request->all() as $input => $value) {
-                if (array_key_exists($input, $request->rules())) {
-                    $requestEquals[$input] = $value;
-                }
-            }
-            if ($request['password']) {
-                $requestEquals['password'] = bcrypt($request->password);
-            }
-
-            $user->update($requestEquals);
-
-            return response()->json(
-                [],
-                200
-            );
-        } catch (\Throwable  $e) {
-
+        $user = User::find($request->userID);
+        if (!$user) {
             return response()->json([
                 "error:" => "true",
-                "message" => $e->getMessage(),
-            ], $e->status);
+                "message" => "Usuario não encontrado!",
+            ], 409);
         }
+
+        $mail = User::User_Email_Equals($request->userID, $request['email'],);
+        if (count($mail) > 0) {
+            return response()->json([
+                "error:" => "true",
+                "message" => "Email já existe em nossa base de dados!",
+            ], 409);
+        }
+
+        //validando apenas o que esta na regra
+        $requestEquals = array();
+        foreach ($request->all() as $input => $value) {
+            if (array_key_exists($input, $arrValidate)) {
+                $requestEquals[$input] = $value;
+            }
+        }
+
+        if ($request['password']) {
+            $requestEquals['password'] = bcrypt($request->password);
+        }
+
+        $user->update($requestEquals);
+
+        return response()->json(
+            [],
+            200
+        );
     }
 }

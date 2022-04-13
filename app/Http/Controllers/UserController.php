@@ -2,12 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Post_UserRequest;
-use App\Http\Requests\Update_UserRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use Illuminate\Validation\ValidationException;
 
 class UserController extends Controller
 {
@@ -152,45 +149,44 @@ class UserController extends Controller
      *      @OA\Response (response="500", description="Internal Server Error"),
      * )
      */
-    public function updateUser(Update_UserRequest $request, $id)
+    public function updateUser(Request $request, $id)
     {
-        try {
 
-            $user = User::find($id);
-            if (!$user) {
-                return response()->json([
-                    "error:" => "true",
-                    "message" => "Usuario não encontrado!",
-                ], 409);
-            }
+        $this->validate($request, array(
+            'name' => 'required|min:6|max:100 | string',
+            'email' => 'required | string |min:6|max:80|email:rfc,dns| unique:users',
+            'level_id' => 'min:1 | integer',
+            'status' => 'min:0 | max:1 | integer',
+        ));
 
-            $mail = User::User_Email_Equals($id, $request['email'],);
-            if (count($mail) > 0) {
-                return response()->json([
-                    "error:" => "true",
-                    "message" => "Email já existe em nossa base de dados!",
-                ], 409);
-            }
-            //validando apenas o que esta na regra
-            $requestEquals = array();
-            foreach ($request->all() as $input => $value) {
-                if (array_key_exists($input, $request->rules())) {
-                    $requestEquals[$input] = $value;
-                }
-            }
-             $user->update($requestEquals);
-
-            return response()->json(
-                [],
-                200
-            );
-        } catch (\Throwable  $e) {
-
+        $user = User::find($id);
+        if (!$user) {
             return response()->json([
                 "error:" => "true",
-                "message" => $e->getMessage(),
-            ], $e->status);
+                "message" => "Usuario não encontrado!",
+            ], 409);
         }
+
+        $mail = User::User_Email_Equals($id, $request['email'],);
+        if (count($mail) > 0) {
+            return response()->json([
+                "error:" => "true",
+                "message" => "Email já existe em nossa base de dados!",
+            ], 409);
+        }
+        //validando apenas o que esta na regra
+        $requestEquals = array();
+        foreach ($request->all() as $input => $value) {
+            if (array_key_exists($input, $request->rules())) {
+                $requestEquals[$input] = $value;
+            }
+        }
+        $user->update($requestEquals);
+
+        return response()->json(
+            [],
+            200
+        );
     }
 
     public function deleteUser($id)

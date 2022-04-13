@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Post_MerchantRequest;
-use App\Http\Requests\Patch_MerchantRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Merchant;
-use Illuminate\Validation\ValidationException;
+
 
 class MerchantsController extends Controller
 {
@@ -56,37 +54,29 @@ class MerchantsController extends Controller
     //  *      @OA\Response (response="500", description="Internal Server Error"),
     //  * )
     //  */
-    public function createMerchant(Post_MerchantRequest $request)
+    public function createMerchant(Request $request)
     {
-        try {
-            $mailTest = Merchant::firstWhere('name', $request['name']);
-            if ($mailTest) {
-                return response()->json([
-                    "error:" => "true",
-                    "message" => "o Nome já existe em nossa base de dados!",
-                ], 409);
-            }
 
-            $merchant = new Merchant;
-            $merchant->name = $request->name;
-            $merchant->corporate_name = $request->corporate_name;
-            $merchant->description = $request->description;
-            $merchant->status = $request->status;
-            $merchant->user_id = $request->userID;
-            $merchant->save();
+        $this->validate($request, array(
+            'name' => 'required|min:6|max:100 | string |unique: merchants, name',
+            'corporate_name' => 'required|min:6|max:100 | string',
+            'description' => 'required|min:6|max:100 | string',
+            'status' => 'required | min:0 | max:1 | integer',
+        ));
+
+        $merchant = new Merchant;
+        $merchant->name = $request->name;
+        $merchant->corporate_name = $request->corporate_name;
+        $merchant->description = $request->description;
+        $merchant->status = $request->status;
+        $merchant->user_id = $request->userID;
+        $merchant->save();
 
 
-            return response()->json(
-                'Dados salvos com sucesso!',
-                201
-            );
-        } catch (\Throwable  $e) {
-
-            return response()->json([
-                "error:" => "true",
-                "message" => $e->getMessage(),
-            ], $e->status);
-        }
+        return response()->json(
+            'Dados salvos com sucesso!',
+            201
+        );
     }
 
     // /**
@@ -140,39 +130,39 @@ class MerchantsController extends Controller
     //  *      @OA\Response (response="500", description="Internal Server Error"),
     //  * )
     //  */
-    public function updateMerchant(Patch_MerchantRequest $request, $id)
+    public function updateMerchant(Request $request, $id)
     {
-        try {
-            $merchant = Merchant::find($id);
-            if (!$merchant) {
-                return response()->json([
-                    "error:" => "true",
-                    "message" => "Empresa não encontrado!",
-                ], 409);
-            }
-
-            //validando apenas o que esta na regra
-            $requestEquals = array();
-            foreach ($request->all() as $input => $value) {
-                if (array_key_exists($input, $request->rules())) {
-                    $requestEquals[$input] = $value;
-                }
-            }
-
-            $merchant->update($requestEquals);
+        $this->validate($request, array(
+            'name' => 'min:6|max:100 | string',
+            'corporate_name' => 'min:6|max:100 | string',
+            'description' => 'min:6|max:100 | string',
+            'status' => 'min:0 | max:1 | integer',
+        ));
 
 
-            return response()->json(
-                'Dados salvos com sucesso!',
-                201
-            );
-        } catch (\Throwable  $e) {
-
+        $merchant = Merchant::find($id);
+        if (!$merchant) {
             return response()->json([
                 "error:" => "true",
-                "message" => $e->getMessage(),
-            ], $e->status);
+                "message" => "Empresa não encontrado!",
+            ], 409);
         }
+
+        //validando apenas o que esta na regra
+        $requestEquals = array();
+        foreach ($request->all() as $input => $value) {
+            if (array_key_exists($input, $request->rules())) {
+                $requestEquals[$input] = $value;
+            }
+        }
+
+        $merchant->update($requestEquals);
+
+
+        return response()->json(
+            'Dados salvos com sucesso!',
+            201
+        );
     }
 
     //  /**

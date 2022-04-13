@@ -2,17 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Post_HamburgerRequest;
+
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Hamburger;
-use App\Models\Bread;
-use App\Models\Meat;
-use App\Models\Status_Order;
-use App\Models\Optional;
 use App\Models\Optionals_Burger;
-use Illuminate\Support\Arr;
-use Illuminate\Validation\ValidationException;
 
 class BurgerController extends Controller
 {

@@ -47,11 +47,10 @@ Route::middleware('AuthenticMD')->prefix('/v1')->group(function () {
 //admin
 Route::middleware(['AuthenticMD', 'CheckIsAdmin'])->prefix('/v1')->group(function () {
 
-    Route::patch('/admin/user/{id}', [UserController::class, 'updateUser'])->name('user.find');
+    Route::patch('/admin/user/{id}', [UserController::class, 'updateUser'])->name('user.update');
     Route::get('/admin/user', [UserController::class, 'allUsers'])->name('user.all');
     Route::get('/admin/user/{id}', [UserController::class, 'getUser'])->name('user.find');
-    Route::patch('/admin/user/{id}', [UserController::class, 'updateUser'])->name('user.find');
-
+   
     Route::get('/admin/level', [LevelController::class, 'allLevel'])->name('level.all');
    
     Route::get('/admin/status_orders', [StatusBurgerController::class, 'allStatusOrders'])->name('statusorder.all');
