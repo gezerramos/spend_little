@@ -37,7 +37,6 @@ class BurgerController extends Controller
     public function allHamburgerUser(Request $request, $status)
     {
 
-        try {
 
             $amburgers = Hamburger::innerjoinHamburgerInfo($status);
             //optionals_id,hamburger_id 
@@ -66,12 +65,5 @@ class BurgerController extends Controller
                 $info,
                 200
             );
-        } catch (\Throwable  $e) {
-
-            return response()->json([
-                "error:" => "true",
-                "message" => $e->getMessage(),
-            ], 500);
-        }
     }
 }

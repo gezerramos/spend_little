@@ -28,7 +28,6 @@ class BreadController extends Controller
     public function allBreads(Request $request)
     {
 
-        try {
             $levels = Bread::all([
                 'id', 
                 'name',
@@ -44,13 +43,7 @@ class BreadController extends Controller
                 $info,
                 200
             );
-        } catch (\Throwable  $e) {
 
-            return response()->json([
-                "error:" => "true",
-                "message" => $e->getMessage(),
-            ], $e->status);
-        }
     }
 
 }

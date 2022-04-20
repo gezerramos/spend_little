@@ -28,31 +28,23 @@ class UserController extends Controller
     public function allUsers(Request $request)
     {
 
-        try {
-            $users = User::all([
-                'id',
-                'name',
-                'email',
-                'created_at',
-                'updated_at',
-                'level_id'
-            ]);
+        $users = User::all([
+            'id',
+            'name',
+            'email',
+            'created_at',
+            'updated_at',
+            'level_id'
+        ]);
 
-            $info = [
-                'count' => count($users),
-                'content' => $users,
-            ];
-            return response()->json(
-                $info,
-                200
-            );
-        } catch (\Throwable  $e) {
-
-            return response()->json([
-                "error:" => "true",
-                "message" => $e->getMessage(),
-            ], $e->status);
-        }
+        $info = [
+            'count' => count($users),
+            'content' => $users,
+        ];
+        return response()->json(
+            $info,
+            200
+        );
     }
 
     /**
@@ -80,24 +72,17 @@ class UserController extends Controller
      */
     public function getUser($id)
     {
-        try {
-            $users = User::find($id);
-            unset($users->password);
 
-            $info = [
-                'content' => $users,
-            ];
-            return response()->json(
-                $info,
-                200
-            );
-        } catch (\Throwable  $e) {
+        $users = User::find($id);
+        unset($users->password);
 
-            return response()->json([
-                "error:" => "true",
-                "message" => $e->getMessage(),
-            ], $e->status);
-        }
+        $info = [
+            'content' => $users,
+        ];
+        return response()->json(
+            $info,
+            200
+        );
     }
     public function findUserMail($email)
     {

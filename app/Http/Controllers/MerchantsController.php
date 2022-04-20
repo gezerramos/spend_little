@@ -185,7 +185,6 @@ class MerchantsController extends Controller
     public function allMerchant(Request $request)
     {
 
-        try {
             $merchant = Merchant::all([
                 'id',
                 'name',
@@ -204,12 +203,5 @@ class MerchantsController extends Controller
                 $info,
                 200
             );
-        } catch (\Throwable  $e) {
-
-            return response()->json([
-                "error:" => "true",
-                "message" => $e->getMessage(),
-            ], $e->status);
-        }
     }
 }

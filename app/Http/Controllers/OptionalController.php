@@ -8,7 +8,7 @@ use App\Models\Optional;
 
 class OptionalController extends Controller
 {
- /**
+    /**
      * @OA\Get(
      *      path="/optionals", 
      *      tags={"/optionals"},
@@ -28,27 +28,18 @@ class OptionalController extends Controller
     public function allOptionals(Request $request)
     {
 
-        try {
-            $levels = Optional::all([
-                'id', 
-                'name'
-            ]);
-            
-            $info = [
-                'count' => count($levels),
-                'content' => $levels,
-            ];
-            return response()->json(
-                $info,
-                200
-            );
-        } catch (\Throwable  $e) {
+        $levels = Optional::all([
+            'id',
+            'name'
+        ]);
 
-            return response()->json([
-                "error:" => "true",
-                "message" => $e->getMessage(),
-            ], $e->status);
-        }
+        $info = [
+            'count' => count($levels),
+            'content' => $levels,
+        ];
+        return response()->json(
+            $info,
+            200
+        );
     }
-
 }

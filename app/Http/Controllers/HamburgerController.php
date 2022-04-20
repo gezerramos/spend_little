@@ -130,8 +130,6 @@ class HamburgerController extends Controller
     public function allHamburgerUser(Request $request)
     {
 
-        try {
-
             $amburgers = Hamburger::innerjoinHamburgerMeInfo($request->userID);
             //optionals_id,hamburger_id 
 
@@ -159,12 +157,5 @@ class HamburgerController extends Controller
                 $info,
                 200
             );
-        } catch (\Throwable  $e) {
-
-            return response()->json([
-                "error:" => "true",
-                "message" => $e->getMessage(),
-            ], 500);
-        }
     }
 }

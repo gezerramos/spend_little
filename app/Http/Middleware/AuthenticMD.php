@@ -39,8 +39,9 @@ class AuthenticMD extends Authenticate
         } catch (\Exception  $e) {
 
             return response()->json([
-                "error:" => "true",
+                
                 "message" => $e->getMessage(),
+                "errors:" => "true",
             ], 401);
         }
     }

@@ -8,7 +8,7 @@ use App\Models\Meat;
 
 class MeatsController extends Controller
 {
- /**
+    /**
      * @OA\Get(
      *      path="/meats", 
      *      tags={"/meats"},
@@ -28,27 +28,18 @@ class MeatsController extends Controller
     public function allMeats(Request $request)
     {
 
-        try {
-            $levels = Meat::all([
-                'id', 
-                'name'
-            ]);
-            
-            $info = [
-                'count' => count($levels),
-                'content' => $levels,
-            ];
-            return response()->json(
-                $info,
-                200
-            );
-        } catch (\Throwable  $e) {
+        $levels = Meat::all([
+            'id',
+            'name'
+        ]);
 
-            return response()->json([
-                "error:" => "true",
-                "message" => $e->getMessage(),
-            ], $e->status);
-        }
+        $info = [
+            'count' => count($levels),
+            'content' => $levels,
+        ];
+        return response()->json(
+            $info,
+            200
+        );
     }
-
 }

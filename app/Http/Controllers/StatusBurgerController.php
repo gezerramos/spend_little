@@ -8,7 +8,7 @@ use App\Models\Status_Order;
 
 class StatusBurgerController extends Controller
 {
- /**
+    /**
      * @OA\Get(
      *      path="/admin/status_orders", 
      *      tags={"/admin/status_orders"},
@@ -28,27 +28,18 @@ class StatusBurgerController extends Controller
     public function allStatusOrders(Request $request)
     {
 
-        try {
-            $statusOrders = Status_Order::all([
-                'id', 
-                'name'
-            ]);
-            
-            $info = [
-                'count' => count($statusOrders),
-                'content' => $statusOrders,
-            ];
-            return response()->json(
-                $info,
-                200
-            );
-        } catch (\Throwable  $e) {
+        $statusOrders = Status_Order::all([
+            'id',
+            'name'
+        ]);
 
-            return response()->json([
-                "error:" => "true",
-                "message" => $e->getMessage(),
-            ], $e->status);
-        }
+        $info = [
+            'count' => count($statusOrders),
+            'content' => $statusOrders,
+        ];
+        return response()->json(
+            $info,
+            200
+        );
     }
-
 }
